@@ -1,9 +1,9 @@
 
 import { useEffect, useState } from "react"; 
 import { Loader2 } from "lucide-react";
-import { GitHubIcon, GoogleIcon } from "../common/Icons.jsx";
+import { GitHubIcon, GoogleIcon } from "../common/Icons.jsx"; 
 
-const BASE_URL = `${import.meta.env.VITE_API_URL}/api/auth` || "http://localhost:8000/api/auth";
+const BASE_URL = `${import.meta.env.VITE_API_BASE_URL}/api/auth` || "http://localhost:8000/api/auth";
 
 
 const OAuthButtons = ({ mode = "login", redirectPath, loading, googleLoading, setGoogleLoading, githubLoading, setGithubLoading }) => {

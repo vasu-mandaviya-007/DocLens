@@ -39,7 +39,7 @@ export const sendMessage = (notebookId, text) =>
 export async function sendMessageStream(notebookId, text, { onCitations, onToken, onReset, onDone, onError }) {
     let response;
     try {
-        response = await fetch(`${import.meta.env.VITE_API_URL}/api/notebook/${notebookId}/chat`, { 
+        response = await fetch(`${API_BASE_URL}/api/notebook/${notebookId}/chat`, { 
             method: "POST",
             headers: { "Content-Type": "application/json" },
             credentials: "include",
