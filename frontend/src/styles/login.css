@@ -1,0 +1,458 @@
+:root {
+    /* Base colors */
+    --clerk-color-primary: light-dark(#2f3037, #ffffff);
+    --clerk-color-primary-foreground: light-dark(#ffffff, black);
+    --clerk-color-danger: #ef4444;
+    --clerk-color-success: #22c543;
+    --clerk-color-warning: light-dark(#f36b16,#b0ad9f);
+    --clerk-color-neutral: light-dark(#000000, white);
+    --clerk-color-foreground: light-dark(#000000, white);
+    --clerk-color-background: light-dark(#ffffff, #212126);
+    --clerk-color-input: light-dark(#ffffff, #26262b);
+    --clerk-color-input-foreground: light-dark(#000000, white);
+    --clerk-color-shimmer: #ffffff;
+    --clerk-color-modal-backdrop: #000000; 
+    --accent : #2F3037; 
+    --accentHover: color-mix(in srgb, var(--clerk-color-primary, #2F3037), white 20%);
+
+    /* Derived colors (previously undeclared, relying on fallback chains) */
+    --clerk-color-border: var(--clerk-color-neutral);
+    --clerk-color-shadow: #000000;
+    --clerk-color-ring: color-mix(in srgb, transparent, var(--clerk-color-neutral) 15%);
+
+    /* Typography */
+    --clerk-font-family: inherit;
+    --clerk-font-family-buttons: var(--clerk-font-family);
+    --clerk-font-size: 0.8125rem;
+    --clerk-font-size-md: var(--clerk-font-size);
+    --clerk-font-size-lg: calc(var(--clerk-font-size) * 17 / 13);
+    --clerk-font-weight: 400;
+    --clerk-font-weight-normal: var(--clerk-font-weight);
+    --clerk-font-weight-bold: 700;
+
+    /* Layout */
+    --clerk-border-radius: 0.375rem;
+    --clerk-border-radius-md: var(--clerk-border-radius);
+    --clerk-spacing: 1rem;
+}
+
+
+
+.login-display {
+    font-family: 'Space Grotesk', 'Inter', sans-serif;
+}
+
+.login-body {
+    font-family: 'Inter', sans-serif;
+}
+
+.login-animate {
+    animation: login-fade-up 0.5s ease both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .login-animate {
+        animation: none;
+    }
+}
+
+
+@keyframes login-fade-up {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.login-animate {
+    animation: login-fade-up 0.5s ease both;
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+    .login-animate {
+        animation: none;
+    }
+}
+
+@theme {
+
+    --color-color-primary : var(--clerk-color-primary);
+    --color-auth-primary-foreground : var(--clerk-color-primary-foreground);
+
+    --color-user-button-footer-bg : linear-gradient(color-mix(in srgb, transparent, var(--clerk-color-neutral, light-dark(#000000, #ffffff)) 3%), color-mix(in srgb, transparent, var(--clerk-color-neutral, light-dark(#000000, #ffffff)) 3%)), linear-gradient(hsl(from var(--clerk-color-background, light-dark(#ffffff, #212126)) h s l / 1), hsl(from var(--clerk-color-background, light-dark(#ffffff, #212126)) h s l / 1));
+
+    --color-user-action-btn-hover : color-mix(in srgb, transparent, var(--clerk-color-neutral, light-dark(#000000, #ffffff)) 3%);
+
+    --color-clerk-border-mixed: color-mix(in srgb, transparent, var(--clerk-color-border) 11%);
+    --color-clerk-divider-bg: color-mix(in srgb, transparent, var(--clerk-color-border) 7%);
+    --color-clerk-muted-foreground: color-mix(in srgb, transparent, var(--clerk-color-foreground) 65%);
+    --animate-field-fade-up : field-fade-up 0.5s ease-in-out;
+    
+    @keyframes field-fade-up {
+        from {
+            opacity: 0;
+            transform: translateY(5px); 
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    };
+
+}
+
+
+@utility clerk-error-msg{
+    font-size: 13px;
+    animation: field-fade-up 0.5s ease-in-out;
+    color: var(--clerk-color-danger);
+}
+
+
+@utility user-button-popover-card{  
+
+    color: var(--clerk-color-foreground, light-dark(#212126, white));
+    background-color: var(--clerk-color-background, light-dark(#ffffff, #212126));
+    border: 0px solid color-mix(in srgb, transparent, var(--clerk-color-border, var(--clerk-color-neutral, light-dark(#000000, #ffffff))) 11%);
+    transform-origin: top right; 
+    animation: 120ms ease 0s 1 normal none running user-popovercard-animation;
+    box-shadow: 0px 5px 15px 0px color-mix(in srgb, transparent, var(--clerk-color-shadow, #000000) 8%), 
+        0px 15px 35px -5px color-mix(in srgb, transparent, var(--clerk-color-shadow, #000000) 20%), 
+        0px 0px 0px 1px color-mix(in srgb, transparent, var(--clerk-color-border, var(--clerk-color-neutral, light-dark(#000000, #ffffff))) 7%);
+
+}
+
+.user-button-popover-card .popover-main{
+    overflow: hidden;
+    border-style: solid;
+    z-index: 10;
+    margin-inline: -1px;
+    margin-block-start: -1px;
+    border-width: 0;
+    border-radius: 8px;
+    border-color:  color-mix(in srgb, transparent, var(--clerk-color-border, var(--clerk-color-neutral, light-dark(#000000, #ffffff))) 11%);
+    box-shadow: 0px 0px 2px 0px color-mix(in srgb, transparent, var(--clerk-color-shadow, #000000) 8%), 
+        0px 1px 2px 0px color-mix(in srgb, transparent, var(--clerk-color-shadow, #000000) 6%), 
+        0px 0px 0px 1px color-mix(in srgb, transparent, var(--clerk-color-border, var(--clerk-color-neutral, light-dark(#000000, #ffffff))) 3%);
+    
+}
+
+
+.user-button-popover-card .popover-main .user-popover-action-btn{
+    color:  color-mix(in srgb, transparent, var(--clerk-color-neutral, light-dark(#000000, #ffffff)) 62%);
+    transition-property: background-color, background, border-color, color, fill, stroke, opacity, box-shadow, transform;
+    transition-duration: 100ms;
+    font-weight: 500;
+    padding: 4px 6px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    text-wrap: nowrap;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    flex : 1 1 0;
+}
+
+.user-button-popover-card .popover-main .user-popover-action-btn:hover{
+    background-color: var(--color-user-action-btn-hover);
+}
+
+.user-button-popover-card .popover-main .user-popover-action-btn svg{
+    width: 1rem;
+    height: 1rem;
+}
+
+.manage-account-action-btn{
+    border-width: 0px;
+    box-shadow: 0px 0px 0px 1px color-mix(in srgb, transparent, var(--clerk-color-border, var(--clerk-color-neutral, light-dark(#000000, #ffffff))) 7%), 0px 2px 3px -1px rgba(0, 0, 0, 0.08), 0px 1px 0px 0px rgba(0, 0, 0, 0.02);
+}
+
+
+
+@keyframes user-popovercard-animation{
+    0% {
+        opacity: 0;
+        transform: scale(0.95) translateY(-6px); 
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0px);
+    }
+}
+
+/* Clerk-style login page */
+
+.auth-card {
+    @apply border-0 border-clerk-border-mixed;
+    background-color: var(--clerk-color-background);
+    transition-property: background-color, background, border-color, color, fill, stroke, opacity, box-shadow, transform;
+    transition-duration: 200ms;
+    z-index: 10;
+    border-radius: 8px;
+    box-shadow: 0px 0px 2px 0px color-mix(in srgb, transparent, var(--clerk-color-shadow) 8%),
+        0px 1px 2px 0px color-mix(in srgb, transparent, var(--clerk-color-shadow) 6%),
+        0px 0px 0px 1px color-mix(in srgb, transparent, var(--clerk-color-border) 3%);
+}
+
+.auth-header-title {
+    box-sizing: border-box;
+    color: var(--clerk-color-foreground);
+    margin: 0px;
+    text-wrap: balance;
+    font-family: inherit;
+    letter-spacing: normal;
+    font-weight: var(--clerk-font-weight-bold);
+    font-size: var(--clerk-font-size-lg);
+    line-height: 1.41176;
+}
+
+.auth-header-subtitle {
+    color: var(--clerk-color-muted-foreground);
+}
+
+.auth-label {
+    display: block;
+    font-size: 13px;
+    font-weight: 550;
+    letter-spacing: normal;
+    color: var(--clerk-color-foreground);
+}
+
+.auth-label.is-disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+
+.auth-user-button{
+    border-width: 1px;
+    border-style: solid;
+    border-color: color-mix(in srgb, transparent, var(--clerk-color-border) 11%);
+}
+
+.auth-user-button:focus-within{
+    box-shadow: 0px 0px 0px 1px color-mix(in srgb, transparent, var(--clerk-color-border) 20%),
+        0px 0px 1px 0px color-mix(in srgb, transparent, var(--clerk-color-border) 11%),
+        0px 0px 0px 4px var(--clerk-color-ring); 
+}
+
+.clerk-input {
+    border-width: 0px;
+    box-shadow: 0px 0px 0px 1px color-mix(in srgb, transparent, var(--clerk-color-border) 11%),
+        0px 0px 1px 0px color-mix(in srgb, transparent, var(--clerk-color-border) 7%);
+    box-sizing: border-box;
+    padding: calc(var(--clerk-spacing) * 1.2) calc(var(--clerk-spacing) * 0.75);
+    background-color: var(--clerk-color-input);
+    color: var(--clerk-color-input-foreground);
+    outline: transparent solid 2px;
+    outline-offset: 2px;
+    max-height: 2.25rem;
+    width: 100%;
+    accent-color: var(--clerk-color-primary);
+    font-family: inherit;
+    letter-spacing: normal;
+    font-weight: var(--clerk-font-weight-normal);
+    font-size: var(--clerk-font-size-md);
+    line-height: 1.38462;
+    border-radius: var(--clerk-border-radius-md);
+    border-width: 1px;
+    border-style: solid;
+    border-color: color-mix(in srgb, transparent, var(--clerk-color-border) 11%);
+    box-shadow: 0px 0px 1px 0px color-mix(in srgb, transparent, var(--clerk-color-border) 7%);
+    transition-property: background-color, background, border-color, color, fill, stroke, opacity, box-shadow, transform;
+    transition-timing-function: ease;
+    transition-duration: 200ms;
+}
+
+.clerk-input:hover {
+    box-shadow: 0px 0px 0px 1px color-mix(in srgb, transparent, var(--clerk-color-border) 28%),
+        0px 0px 1px 0px color-mix(in srgb, transparent, var(--clerk-color-border) 11%);
+}
+
+.clerk-input:focus-within {
+    box-shadow: 0px 0px 0px 1px color-mix(in srgb, transparent, var(--clerk-color-border) 28%),
+        0px 0px 1px 0px color-mix(in srgb, transparent, var(--clerk-color-border) 11%),
+        0px 0px 0px 4px var(--clerk-color-ring);
+}
+
+.clerk-input:disabled,
+.clerk-input input:disabled {
+    cursor: not-allowed;
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+
+
+
+
+/* Password field live-validation error state — clerk-otp-input.error jaisa hi pattern */
+
+.clerk-input.clerk-input-error {
+    border-color: color-mix(in srgb, transparent, var(--clerk-color-danger) 41%);
+    box-shadow: 0px 0px 0px 1px color-mix(in srgb, transparent, var(--clerk-color-danger) 41%),
+        0px 0px 1px 0px color-mix(in srgb, transparent, var(--clerk-color-danger) 15%);
+}
+
+.clerk-input.clerk-input-error:focus-within {
+    box-shadow: 0px 0px 0px 1px color-mix(in srgb, transparent, var(--clerk-color-danger) 53%),
+        0px 0px 1px 0px color-mix(in srgb, transparent, var(--clerk-color-danger) 15%),
+        0px 0px 0px 4px color-mix(in srgb, transparent, var(--clerk-color-danger) 15%);
+}
+
+
+.clerk-input.clerk-input-success {
+    border-color: color-mix(in srgb, transparent, var(--clerk-color-success) 41%);
+    box-shadow: 0px 0px 0px 1px color-mix(in srgb, transparent, var(--clerk-color-success) 41%),
+        0px 0px 1px 0px color-mix(in srgb, transparent, var(--clerk-color-success) 15%);
+}
+
+.clerk-input.clerk-input-success:focus-within {
+    box-shadow: 0px 0px 0px 1px color-mix(in srgb, transparent, var(--clerk-color-success) 53%),
+        0px 0px 1px 0px color-mix(in srgb, transparent, var(--clerk-color-success) 15%),
+        0px 0px 0px 4px color-mix(in srgb, transparent, var(--clerk-color-success) 15%);
+}
+
+
+
+
+/* OTP input */
+
+.clerk-otp-input {
+    border-width: 0px;
+    box-shadow: 0px 0px 0px 1px color-mix(in srgb, transparent, var(--clerk-color-border) 11%),
+        0px 0px 1px 0px color-mix(in srgb, transparent, var(--clerk-color-border) 7%);
+    margin: 0px;
+    outline: transparent solid 2px;
+    outline-offset: 2px;
+    max-height: 2.75rem;
+    aspect-ratio: 1;
+    accent-color: var(--clerk-color-primary);
+    border-style: solid;
+    transition-property: background-color, background, border-color, color, fill, stroke, opacity, box-shadow, transform;
+    transition-timing-function: ease;
+    transition-duration: 200ms;
+    text-align: center;
+    font-weight: 700;
+    font-size: var(--clerk-font-size-lg);
+    line-height: 1.41176;
+    box-sizing: border-box;
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    color: var(--clerk-color-input-foreground);
+    border-radius: var(--clerk-border-radius-md);
+    border-color: color-mix(in srgb, transparent, var(--clerk-color-border) 11%);
+    background-color: unset;
+}
+
+.clerk-otp-input:focus {
+    box-shadow: 0px 0px 0px 1px color-mix(in srgb, transparent, var(--clerk-color-border) 28%),
+        0px 0px 1px 0px color-mix(in srgb, transparent, var(--clerk-color-border) 11%), 
+        0px 0px 0px 4px var(--clerk-color-ring);
+    /* box-shadow: 0px 0px 0px 1px color-mix(in srgb, transparent, var(--clerk-color-shadow) 28%),
+        0px 0px 1px 0px color-mix(in srgb, transparent, var(--clerk-color-shadow) 11%),
+        0px 0px 0px 4px color-mix(in srgb, transparent, var(--clerk-color-shadow) 15%); */
+}
+
+.clerk-otp-input.error {
+    box-shadow: 0px 0px 0px 1px color-mix(in srgb, transparent, var(--clerk-color-danger) 41%),
+        0px 0px 1px 0px color-mix(in srgb, transparent, var(--clerk-color-danger) 15%);
+}
+
+.clerk-otp-input.error:focus {
+    box-shadow: 0px 0px 0px 1px color-mix(in srgb, transparent, var(--clerk-color-danger) 53%),
+        0px 0px 1px 0px color-mix(in srgb, transparent, var(--clerk-color-danger) 15%),
+        0px 0px 0px 4px color-mix(in srgb, transparent, var(--clerk-color-danger) 15%);
+}
+
+/* OAuth button */
+
+.oauth-button {
+    border-width: 0px;
+    box-shadow: 0px 0px 0px 1px color-mix(in srgb, transparent, var(--clerk-color-border) 7%),
+        0px 2px 3px -1px rgba(0, 0, 0, 0.08),
+        0px 1px 0px 0px rgba(0, 0, 0, 0.02);
+    margin: 0px;
+    padding: calc(var(--clerk-spacing) * 0.4375) calc(var(--clerk-spacing) * 0.75);
+    outline: 0px;
+    user-select: none;
+    cursor: pointer;
+    background-color: unset;
+    color: color-mix(in srgb, transparent, var(--clerk-color-neutral) 62%);
+    border-radius: var(--clerk-border-radius-md);
+    isolation: isolate;
+    display: inline-flex;
+    align-items: center;
+    transition-property: background-color, background, border-color, color, fill, stroke, opacity, box-shadow, transform;
+    transition-duration: 100ms;
+    font-family: var(--clerk-font-family-buttons);
+    letter-spacing: normal;
+    font-weight: 500;
+    font-size: var(--clerk-font-size-md);
+    line-height: 1.38462;
+    border-style: solid;
+    border-color: color-mix(in srgb, transparent, var(--clerk-color-border) 11%);
+    width: 100%;
+    --accent: var(--clerk-color-primary);
+    --accentHover: color-mix(in srgb, var(--clerk-color-primary), white 20%);
+    --border: var(--clerk-color-primary);
+    --accentContrast: var(--clerk-color-primary-foreground);
+    --alpha: color-mix(in srgb, transparent, var(--clerk-color-neutral) 3%);
+    gap: var(--clerk-spacing);
+    position: relative;
+    justify-content: flex-start;
+}
+
+.oauth-button:hover {
+    background-color: color-mix(in srgb, transparent, var(--clerk-color-neutral) 3%);
+}
+
+.oauth-button:focus-within {
+    box-shadow: 0px 0px 0px 1px color-mix(in srgb, transparent, var(--clerk-color-border) 7%),
+        0px 2px 3px -1px rgba(0, 0, 0, 0.08),
+        0px 1px 0px 0px rgba(0, 0, 0, 0.02),
+        0px 0px 0px 4px var(--clerk-color-ring);
+}
+
+.oauth-button:disabled {
+    cursor: not-allowed;
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+.oauth-button div:nth-child(1) {
+    box-sizing: border-box;
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    justify-content: center;
+    gap: calc(var(--clerk-spacing) * 0.75);
+    width: 100%;
+    overflow: hidden; 
+}
+
+
+
+
+.clerk-submit-btn{
+    box-shadow: 0px 0px 0px 1px var(--clerk-color-primary, #2F3037), 
+        0px 1px 1px 0px rgba(255, 255, 255, 0.07) inset, 
+        0px 2px 3px 0px rgba(34, 42, 53, 0.20),  
+        0px 1px 1px 0px rgba(0, 0, 0, 0.24) !important; 
+}
+
+.clerk-submit-btn:hover{
+    background-color: var(--accentHover) !important; 
+}

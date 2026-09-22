@@ -1,0 +1,262 @@
+:root {
+    --clerk-color-primary: light-dark(#2f3037, #ffffff);
+    --clerk-color-primary-foreground: light-dark(#ffffff, black);
+    --clerk-color-danger: #ef4444;
+    --clerk-color-success: #22c543;
+    --clerk-color-warning: #f36b16;
+    --clerk-color-neutral: light-dark(#000000, white);
+    --clerk-color-foreground: light-dark(#000000, white);
+    --clerk-color-background: light-dark(#ffffff, #212126);
+    --clerk-color-input: light-dark(#ffffff, #26262b);
+    --clerk-color-input-foreground: light-dark(#000000, white);
+    --clerk-color-ring: light-dark(color-mix(in srgb, #000000 15.000000000000002%, transparent),
+            color-mix(in srgb, #ffffff 15.000000000000002%, transparent));
+    --clerk-color-shimmer: #ffffff;
+    --clerk-color-modal-backdrop: #000000;
+    --clerk-border-radius: 0.375rem;
+    --clerk-spacing: 1rem;
+}
+
+
+@theme {
+    --color-clerk-border-mixed: color-mix(in srgb, transparent, var(--clerk-color-border, var(--clerk-color-neutral, light-dark(#000000, #ffffff))) 11%);
+    --color-clerk-divider-bg: color-mix(in srgb, transparent, var(--clerk-color-border, var(--clerk-color-neutral, light-dark(#000000, #ffffff))) 7%);
+    --color-clerk-muted-foreground: color-mix(in srgb, transparent, var(--clerk-color-foreground, light-dark(#212126, white)) 65%);
+}
+
+/* Clerk Style Login page */
+
+
+.auth-card {
+    @apply border-0 border-clerk-border-mixed;
+    background-color: var(--clerk-color-background, light-dark(#ffffff, #212126));
+    transition-property: background-color, background, border-color, color, fill, stroke, opacity, box-shadow, transform;
+    transition-duration: 200ms;
+    z-index: 10;
+    border-radius: 8px;
+    box-shadow: 0px 0px 2px 0px color-mix(in srgb, transparent, var(--clerk-color-shadow, #000000) 8%),
+        0px 1px 2px 0px color-mix(in srgb, transparent, var(--clerk-color-shadow, #000000) 6%),
+        0px 0px 0px 1px color-mix(in srgb, transparent, var(--clerk-color-border, var(--clerk-color-neutral, light-dark(#000000, #ffffff))) 3%);
+}
+
+.auth-header-title {
+    box-sizing: border-box;
+    color: var(--clerk-color-foreground, light-dark(#212126, white));
+    margin: 0px;
+    text-wrap: balance;
+    font-family: inherit;
+    letter-spacing: normal;
+    font-weight: var(--clerk-font-weight-bold, 700);
+    font-size: var(--clerk-font-size-lg, calc(var(--clerk-font-size, 0.8125rem) * 17 / 13));
+    line-height: calc(1.41176);
+}
+
+.auth-header-subtitle {
+    color: var(--clerk-color-muted-foreground);
+}
+
+.clerk-input {
+
+    border-width: 0px;
+    box-shadow: 0px 0px 0px 1px color-mix(in srgb, transparent, var(--clerk-color-border, var(--clerk-color-neutral, light-dark(#000000, #ffffff))) 11%), 0px 0px 1px 0px color-mix(in srgb, transparent, var(--clerk-color-border, var(--clerk-color-neutral, light-dark(#000000, #ffffff))) 7%);
+
+    box-sizing: border-box;
+    padding: calc(var(--clerk-spacing, 1rem) * 1.2) calc(var(--clerk-spacing, 1rem) * 0.75);
+    background-color: var(--clerk-color-input, light-dark(white, #26262B));
+    color: var(--clerk-color-input-foreground, light-dark(#131316, white));
+    outline: transparent solid 2px;
+    outline-offset: 2px;
+    max-height: 2.25rem;
+    width: 100%;
+    accent-color: var(--clerk-color-primary, light-dark(#2F3037, #ffffff));
+    font-family: inherit;
+    letter-spacing: normal;
+    font-weight: var(--clerk-font-weight-normal, var(--clerk-font-weight, 400));
+    font-size: var(--clerk-font-size-md, var(--clerk-font-size, 0.8125rem));
+    line-height: calc(1.38462);
+    border-radius: var(--clerk-border-radius-md, var(--clerk-border-radius, 0.375rem));
+    border-width: 1px;
+    border-style: solid;
+    border-color: color-mix(in srgb, transparent, var(--clerk-color-border, var(--clerk-color-neutral, light-dark(#000000, #ffffff))) 11%);
+    box-shadow: 0px 0px 1px 0px color-mix(in srgb, transparent, var(--clerk-color-border, var(--clerk-color-neutral, light-dark(#000000, #ffffff))) 7%);
+    transition-property: background-color, background, border-color, color, fill, stroke, opacity, box-shadow, transform;
+    transition-timing-function: ease;
+    transition-duration: 200ms;
+}
+
+.clerk-input:hover {
+    box-shadow: 0px 0px 0px 1px color-mix(in srgb, transparent, var(--clerk-color-border, var(--clerk-color-neutral, light-dark(#000000, #ffffff))) 28%), 0px 0px 1px 0px color-mix(in srgb, transparent, var(--clerk-color-border, var(--clerk-color-neutral, light-dark(#000000, #ffffff))) 11%);
+}
+
+.clerk-input:focus-within {
+    box-shadow: 0px 0px 0px 1px color-mix(in srgb, transparent, var(--clerk-color-border, var(--clerk-color-neutral, light-dark(#000000, #ffffff))) 28%), 0px 0px 1px 0px color-mix(in srgb, transparent, var(--clerk-color-border, var(--clerk-color-neutral, light-dark(#000000, #ffffff))) 11%), 0px 0px 0px 4px var(--clerk-color-ring, color-mix(in srgb, transparent, var(--clerk-color-neutral, light-dark(#000000, #ffffff)) 15.000000000000002%));
+}
+
+
+.clerk-input:disabled {
+    cursor: not-allowed;
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+
+
+/* OTP INPUT CSS */
+
+
+
+
+/* OTP INPUT CSS */
+
+.clerk-otp-input {
+    border-width: 0px;
+    box-shadow: 0px 0px 0px 1px color-mix(in srgb, transparent, var(--clerk-color-border, var(--clerk-color-neutral, #000000)) 11%), 0px 0px 1px 0px color-mix(in srgb, transparent, var(--clerk-color-border, var(--clerk-color-neutral, #000000)) 7%);
+    margin: 0px;
+    outline: transparent solid 2px;
+    outline-offset: 2px;
+    max-height: 2.75rem;
+    aspect-ratio: 1;
+    accent-color: var(--clerk-color-primary, #2F3037);
+    border-style: solid;
+    transition-property: background-color, background, border-color, color, fill, stroke, opacity, box-shadow, transform;
+    transition-timing-function: ease;
+    transition-duration: 200ms;
+    text-align: center;
+    font-weight: 700;
+    font-size: var(--clerk-font-size-lg, calc(var(--clerk-font-size, 0.8125rem) * 17 / 13));
+    line-height: calc(1.41176);
+    /* padding: 3px; */
+    box-sizing: border-box;
+    display: flex;
+    position: relative;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    /* height: calc(var(--clerk-spacing, 1rem) * 2.5); */
+    /* width: calc(var(--clerk-spacing, 1rem) * 2.5); */
+    color: var(--clerk-color-input-foreground, #131316);
+    border-radius: var(--clerk-border-radius-md, var(--clerk-border-radius, 0.375rem));
+    border-color:
+        color-mix(in srgb, transparent, var(--clerk-color-border, var(--clerk-color-neutral, #000000)) 11%);
+    background-color: unset;
+}
+
+
+.clerk-otp-input:focus {
+    box-shadow: 0px 0px 0px 1px color-mix(in srgb, transparent, #000000 28%), 0px 0px 1px 0px color-mix(in srgb, transparent, #000000 11%), 0px 0px 0px 4px color-mix(in srgb, transparent, #000000 15.000000000000002%);
+}
+
+
+.clerk-otp-input.error {
+    box-shadow: 0px 0px 0px 1px color-mix(in srgb, transparent, var(--clerk-color-danger, #EF4444) 41%), 0px 0px 1px 0px color-mix(in srgb, transparent, var(--clerk-color-danger, #EF4444) 15%);
+}
+
+.clerk-otp-input.error:focus {
+    box-shadow: 0px 0px 0px 1px color-mix(in srgb, transparent, var(--clerk-color-danger, #EF4444) 53%), 0px 0px 1px 0px color-mix(in srgb, transparent, var(--clerk-color-danger, #EF4444) 15%), 0px 0px 0px 4px color-mix(in srgb, transparent, var(--clerk-color-danger, #EF4444) 15%);
+}
+
+
+
+
+
+
+
+/* OAUTH BUTTON CSS */
+
+
+.oauth-button {
+    border-width: 0px;
+    box-shadow:
+        0px 0px 0px 1px color-mix(in srgb,
+            transparent,
+            var(--clerk-color-border,
+                var(--clerk-color-neutral, light-dark(#000000, #ffffff))) 7%),
+        0px 2px 3px -1px rgba(0, 0, 0, 0.08),
+        0px 1px 0px 0px rgba(0, 0, 0, 0.02);
+
+    margin: 0px;
+    padding: calc(var(--clerk-spacing, 1rem) * 0.4375) calc(var(--clerk-spacing, 1rem) * 0.75);
+    outline: 0px;
+    user-select: none;
+    cursor: pointer;
+    background-color: unset;
+    color: color-mix(in srgb,
+            transparent,
+            var(--clerk-color-neutral, light-dark(#000000, #ffffff)) 62%);
+    border-radius: var(--clerk-border-radius-md,
+            var(--clerk-border-radius, 0.375rem));
+    isolation: isolate;
+    display: inline-flex;
+    -webkit-box-align: center;
+    align-items: center;
+    transition-property:
+        background-color, background, border-color, color, fill, stroke, opacity,
+        box-shadow, transform;
+    transition-duration: 100ms;
+    font-family: var(--clerk-font-family-buttons,
+            var(--clerk-font-family, inherit));
+    letter-spacing: normal;
+    font-weight: 500;
+    font-size: var(--clerk-font-size-md, var(--clerk-font-size, 0.8125rem));
+    line-height: calc(1.38462);
+    border-style: solid;
+    border-color: color-mix(in srgb,
+            transparent,
+            var(--clerk-color-border,
+                var(--clerk-color-neutral, light-dark(#000000, #ffffff))) 11%);
+    width: 100%;
+    --accent: var(--clerk-color-primary, light-dark(#2f3037, #ffffff));
+    --accentHover: color-mix(in srgb,
+            var(--clerk-color-primary, light-dark(#2f3037, #ffffff)),
+            white 20%);
+    --border: var(--clerk-color-primary, light-dark(#2f3037, #ffffff));
+    --accentContrast: var(--clerk-color-primary-foreground,
+            light-dark(white, black));
+    --alpha: color-mix(in srgb,
+            transparent,
+            var(--clerk-color-neutral, light-dark(#000000, #ffffff)) 3%);
+    gap: var(--clerk-spacing, 1rem);
+    position: relative;
+    -webkit-box-pack: start;
+    justify-content: flex-start;
+}
+
+.oauth-button:hover {
+    background-color: color-mix(in srgb,
+            transparent,
+            var(--clerk-color-neutral, light-dark(#000000, #ffffff)) 3%);
+}
+
+.oauth-button:focus-within {
+    box-shadow:
+        0px 0px 0px 1px color-mix(in srgb,
+            transparent,
+            var(--clerk-color-border,
+                var(--clerk-color-neutral, light-dark(#000000, #ffffff))) 7%),
+        0px 2px 3px -1px rgba(0, 0, 0, 0.08),
+        0px 1px 0px 0px rgba(0, 0, 0, 0.02),
+        0px 0px 0px 4px var(--clerk-color-ring,
+            color-mix(in srgb,
+                transparent,
+                var(--clerk-color-neutral, light-dark(#000000, #ffffff)) 15.000000000000002%));
+}
+
+.oauth-button:disabled {
+    cursor: not-allowed;
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+.oauth-button div:nth-child(1) {
+    box-sizing: border-box;
+    display: flex;
+    flex-flow: row;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    gap: calc(var(--clerk-spacing, 1rem) * 0.75);
+    width: 100%;
+    overflow: hidden;
+}
