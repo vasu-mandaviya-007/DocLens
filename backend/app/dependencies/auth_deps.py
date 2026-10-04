@@ -1,7 +1,7 @@
 from fastapi import Request, HTTPException, status
 from jose import JWTError
 from app.core.security import decode_access_token
-from app.models.User import User
+from app.models.user import User
 from beanie import PydanticObjectId
 
 

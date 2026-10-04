@@ -3,7 +3,7 @@ import mammoth from "mammoth";
 import { FileText, Loader2 } from "lucide-react";
 
 export default function DocxPreviewPanel({ documentUrl }) {
-    const [html, setHtml] = useState(null);
+    const [html, setHtml] = useState(null); 
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
 
@@ -55,7 +55,7 @@ export default function DocxPreviewPanel({ documentUrl }) {
                         rel="noopener noreferrer"
                         className="text-xs text-primary hover:underline"
                     >
-                        Download instead
+                        Download instead 
                     </a>
                 )}
             </div>
@@ -68,7 +68,7 @@ export default function DocxPreviewPanel({ documentUrl }) {
     // same-origin/self-uploaded-content jaisa hi hai — normal document
     // preview features mein ye common pattern hai.
     return (
-        <div className="h-full overflow-y-auto px-6 py-5">
+        <div className="h-full prose prose-zinc dark:prose-invert prose-p:leading-relaxed prose-pre:p-0 overflow-y-auto px-6 py-5  ">
             <div className="docx-preview" dangerouslySetInnerHTML={{ __html: html }} />
         </div>
     );

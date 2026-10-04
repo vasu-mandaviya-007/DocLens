@@ -56,7 +56,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 const ThemeContext = createContext(null);
 const STORAGE_KEY = "quire-theme";
 
-function getIsDark(theme) {
+function getIsDark(theme) { 
     const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
     return theme === "dark" || (theme === "system" && prefersDark);
 }
@@ -95,7 +95,7 @@ export function ThemeProvider({ children }) {
     );
 }
 
-export function useTheme() {
+export function useTheme() { 
     const context = useContext(ThemeContext);
     if (!context) {
         throw new Error("useTheme must be used inside a ThemeProvider");

@@ -3,7 +3,7 @@ import { useState, useRef } from 'react';
 import toast from 'react-hot-toast';
 import { CheckCircle2, AlertCircle, Lock, X, AlertTriangle, Info } from 'lucide-react';
 
-const DRAG_CLOSE_THRESHOLD = 80;
+const DRAG_CLOSE_THRESHOLD = 80;  
 
 const ToastCard = ({ t, message, activeConfig, showProgress }) => {
     const [dragX, setDragX] = useState(0);
@@ -73,7 +73,7 @@ const ToastCard = ({ t, message, activeConfig, showProgress }) => {
                 }}
                 className="relative w-full bg-white dark:bg-surface-default shadow-2xl shadow-black/10 rounded-lg pointer-events-auto flex border border-slate-100 dark:border-lines-divider overflow-hidden select-none"
             >
-                <div className={`w-1.5 ${activeConfig.accent} shrink-0 relative z-10`} />
+                <div className={`w-1.5 ${activeConfig.accent} shrink-0 relative z-10`} /> 
 
                 <div className="flex-1 w-0 p-4 relative z-10 bg-white dark:bg-surface-default">
                     <div className="flex items-start gap-3.5">
@@ -84,7 +84,7 @@ const ToastCard = ({ t, message, activeConfig, showProgress }) => {
                             <p className={`text-[13px] font-bold tracking-wide ${activeConfig.title}`}>
                                 {activeConfig.titleText}
                             </p>
-                            <p className="mt-1 text-[12px] font-medium text-slate-500 dark:text-content-deemphasized leading-relaxed">
+                            <p className="mt-1 text-[12px] font-medium text-slate-500 dark:text-content-default/80 leading-relaxed">
                                 {message}
                             </p>
                         </div>
@@ -146,7 +146,7 @@ export const showToast = (message, type = "success", options) => {
         error: { icon: <AlertCircle size={18} className="text-rose-500" />, bg: 'bg-rose-50', accent: 'bg-rose-500', title: 'text-rose-800', titleText: 'Error' },
         demo: { icon: <Lock size={18} className="text-amber-500" />, bg: 'bg-amber-50', accent: 'bg-amber-500', title: 'text-amber-800', titleText: 'Access Restricted' },
         warning: { icon: <AlertTriangle size={18} className="text-orange-500" />, bg: 'bg-orange-50', accent: 'bg-orange-500', title: 'text-orange-800', titleText: 'Warning' },
-        info: { icon: <Info size={18} className="text-blue-500" />, bg: 'bg-blue-50', accent: 'bg-blue-500', title: 'text-blue-800', titleText: 'Notice' }
+        info: { icon: <Info size={18} className="text-blue-500" />, bg: 'bg-blue-50', accent: 'bg-blue-500', title: 'text-blue-800 dark:text-blue-400', titleText: 'Notice' }
     }; 
 
     const activeConfig = config[actualType] || config.info; 

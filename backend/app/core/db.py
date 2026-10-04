@@ -2,9 +2,9 @@ from beanie import init_beanie
 from motor.motor_asyncio import AsyncIOMotorClient
 
 from app.core.config import settings
-from app.models.User import User, EmailVerificationToken, PasswordResetOtp, RefreshToken
+from app.models.user import User, EmailVerificationToken, PasswordResetOtp, RefreshToken
 from app.models.notebook import Notebook
-from app.models.notebook_file import DocumentFile
+from app.models.notebook_file import DocumentFile 
 from app.models.conversation import Conversation  
 from app.models.message import Message 
 from app.models.usage_logs import UsageLogs, UsageCounter

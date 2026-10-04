@@ -630,11 +630,29 @@
 
 
 
- 
+
 import React, { useRef, useState, useCallback } from "react";
 import { UploadCloud, X, AlertTriangle } from "lucide-react";
 import { pdfFileIcon, docsFileIcon, noteIcon } from "../../assets/assets.js";
 import { IconButton } from "@mui/material";
+
+// const CATEGORY_MAP = {
+//     pdf: {
+//         exts: ["pdf"],
+//         mimes: ["application/pdf"],
+//         icon: pdfFileIcon,
+//     },
+//     docx: {
+//         exts: ["docx"],
+//         mimes: ["application/vnd.openxmlformats-officedocument.wordprocessingml.document"],
+//         icon: docsFileIcon,
+//     },
+//     txt: {
+//         exts: ["txt"],
+//         mimes: ["text/plain"],
+//         icon: noteIcon,
+//     },
+// };
 
 const CATEGORY_MAP = {
     pdf: {
@@ -650,6 +668,11 @@ const CATEGORY_MAP = {
     txt: {
         exts: ["txt"],
         mimes: ["text/plain"],
+        icon: noteIcon,
+    },
+    md: {
+        exts: ["md"],
+        mimes: ["text/markdown", "text/x-markdown"],
         icon: noteIcon,
     },
 };

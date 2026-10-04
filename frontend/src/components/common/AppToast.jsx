@@ -1,5 +1,5 @@
 import toast from "react-hot-toast";
-import Toast from "./Toast.jsx"; 
+import Toast from "./Toast.jsx";  
 
 /**
  * Drop-in replacement for react-hot-toast's default toast object.

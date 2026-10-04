@@ -13,7 +13,6 @@ export default defineConfig({
   resolve: {
     alias: { 
       'styles': path.resolve(import.meta.dirname, './src/styles'),
-      "@": path.resolve(__dirname, "./src"),
     }
   }
 })

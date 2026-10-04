@@ -53,7 +53,7 @@ export function NotebookListRow({ notebook, isLast }) {
             className={`grid grid-cols-[1fr_120px_140px_40px] items-center px-5 py-4 cursor-pointer transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-800 ${!isLast ? "border-b border-zinc-200 dark:border-zinc-800" : ""
                 }`}
         >
-            <div className="flex items-center gap-3 min-w-0">
+            <div className="flex items-center gap-3 min-w-0"> 
                 <span className={`w-1.5 h-6 rounded-full shrink-0 ${getSpineColor(notebook.color)}`} />
                 <span className="text-sm font-medium truncate text-zinc-900 dark:text-zinc-100">
                     {notebook.title}
@@ -90,7 +90,7 @@ export function NotebookGridCard({ notebook, onEdit, onPin, onDelete }) {
     const navigate = useNavigate();
     const [menuOpen, setMenuOpen] = useState(false);
 
-    const isPinned = notebook?.pinned || false;
+    const isPinned = notebook?.pinned || false; 
 
     const menuRef = useRef(null);
 
@@ -118,12 +118,13 @@ export function NotebookGridCard({ notebook, onEdit, onPin, onDelete }) {
             className={`rounded-xl ${getBgColor(notebook.color)} animate-fade-in-down border border-zinc-200 dark:border-zinc-800 dark:bg-zinc-900 px-4 py-6 flex items-start gap-3 cursor-pointer transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-800 h-full`}
         >
             <div className="flex flex-col w-full h-full">
-                <div className="flex justify-between items-start w-full grow">
+
+                <div className="flex justify-between items-start w-full ">
                     <div>
                         <img src={icon} className="object-cover h-14" alt="File Icon" />
                     </div>
 
-                    {/* <div className="relative"> 
+                    {/* <div className="relative">  
                         <button
                             onClick={(e) => { e.stopPropagation(); setMenuOpen((p) => !p); }}
                             className="rounded-full p-2 hover:bg-gray-200 dark:hover:bg-zinc-800"
@@ -168,7 +169,7 @@ export function NotebookGridCard({ notebook, onEdit, onPin, onDelete }) {
                             )
                         }
 
-                        <DropdownMenu
+                        <DropdownMenu 
                             align="left"
                             width={220}
                             items={menuItems}
@@ -185,8 +186,8 @@ export function NotebookGridCard({ notebook, onEdit, onPin, onDelete }) {
 
                 </div>
 
-                <div className="flex flex-col w-full mt-5 pl-2">
-                    <p className="text-lg font-medium line-clamp-2 wrap-break-word text-zinc-900 dark:text-zinc-100">
+                <div className="flex flex-col w-full h-full mt-5 pl-2 "> 
+                    <p className="text-lg grow font-medium line-clamp-2 wrap-break-word text-zinc-900 dark:text-zinc-100">
                         {notebook.title}
                     </p>
                     <p className="text-xs text-zinc-400 dark:text-zinc-500 mt-1 pt-2">

@@ -205,7 +205,7 @@ export default function DropdownMenu({
     const triggerRef = useRef(null);
     const menuRef = useRef(null);
     const [open, setOpen] = useState(false);
-    const [pos, setPos] = useState({ top: 0, left: 0 });
+    const [pos, setPos] = useState({ top: 0, left: 0 }); 
 
     const calculatePosition = useCallback(() => {
         if (!triggerRef.current) return;

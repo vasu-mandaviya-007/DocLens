@@ -1,4 +1,4 @@
-from datetime import datetime, timezone 
+from datetime import datetime, timezone
 import asyncio
 from beanie import PydanticObjectId
 from fastapi import APIRouter, Depends, status
@@ -12,17 +12,16 @@ from app.models.conversation import Conversation
 from app.models.message import Message
 from app.models.notebook import Notebook
 from app.models.notebook_file import DocumentFile
-from app.schemas.auth import MessageResponse 
-from app.models.User import User
+from app.schemas.auth import MessageResponse
+from app.models.user import User
 
 from app.schemas.notebook import RenameNotebookRequest
-from app.services.cloudinary_service import delete_file_from_cloudinary
-from app.services.vector_store import delete_chunks_for_notebook
+from app.services.documents.cloudinary_service import delete_file_from_cloudinary
+from app.services.retrieval.vector_store import delete_chunks_for_notebook
 
-router = APIRouter() 
+router = APIRouter()
 
 
- 
 @router.get("/notebooks")
 async def list_notebooks(current_user: User = Depends(get_current_user)):
 
@@ -47,13 +46,15 @@ async def list_notebooks(current_user: User = Depends(get_current_user)):
                 "notebook_id": str(nb.id),
                 "title": nb.title,
                 "pinned": nb.pinned,
-                "created_at": nb.created_at.isoformat(),
+                "created_at": nb.created_at.isoformat(), 
                 "document": (
                     {
                         "filename": document.filename,
                         "document_url": document.file_url,
                         "status": document.status,
                         "page_count": document.page_count,
+                        "total_chunks": document.total_chunks,
+                        "error_message": document.error_message,
                     }
                     if document
                     else None
@@ -62,6 +63,7 @@ async def list_notebooks(current_user: User = Depends(get_current_user)):
         )
 
     return {"data": result}
+
 
 
 @router.post("/notebook", status_code=status.HTTP_201_CREATED)
@@ -99,7 +101,7 @@ async def get_notebook(
             detail={"code": "notebook_not_found", "message": "Notebook not found"},
         )
 
-    document = await DocumentFile.find_one(DocumentFile.notebook_id == notebook_id)
+    document = await DocumentFile.find_one(DocumentFile.notebook_id == notebook_id) 
 
     return {
         "data": {
@@ -111,12 +113,17 @@ async def get_notebook(
                     "document_url": document.file_url,
                     "status": document.status,
                     "page_count": document.page_count,
+                    "total_chunks": document.total_chunks,
+                    "error_message": document.error_message,
+                    "summary": document.summary,
+                    "suggested_questions": document.suggested_questions
                 }
                 if document
                 else None
             ),
         }
     }
+
 
 
 @router.patch("/notebook/{notebook_id}")
@@ -139,41 +146,20 @@ async def rename_notebook(
     return {"data": {"title": notebook.title}}
 
 
-# @router.delete("/notebook/{notebook_id}")
-# async def delete_notebook(
-#     notebook_id: PydanticObjectId,
-#     current_user: User = Depends(get_current_user),
-# ):
-#     notebook = await Notebook.get(notebook_id)
-#     if not notebook or notebook.user_id != current_user.id: 
-#         raise HTTPException(
-#             status_code=404,
-#             detail={"code": "notebook_not_found", "message": "Notebook not found"},
-#         )
-
-#     await DocumentFile.find(DocumentFile.notebook_id == notebook_id).delete()
-
-#     await Message.find(Message.notebook_id == notebook_id).delete()
-
-#     await Conversation.find(Conversation.notebook_id == notebook_id).delete()
-
-#     await notebook.delete()
-
-#     return MessageResponse(message="Notebook Deleted")
-
-
 
 @router.delete("/notebook/{notebook_id}")
-async def delete_notebook(notebook_id : PydanticObjectId, current_user = Depends(get_current_user)) : 
+async def delete_notebook(
+    notebook_id: PydanticObjectId, current_user=Depends(get_current_user)
+):
 
     notebook = await Notebook.get(notebook_id)
 
     if not notebook or notebook.user_id != current_user.id:
         raise NotFoundError("Notebook not found")
 
-    document = await DocumentFile.find_one(DocumentFile.notebook_id == notebook_id) 
+    document = await DocumentFile.find_one(DocumentFile.notebook_id == notebook_id)
 
-    if document and document.cloudinary_public_id : 
+    if document and document.cloudinary_public_id:
         await delete_file_from_cloudinary(document.cloudinary_public_id)
 
     await asyncio.to_thread(delete_chunks_for_notebook, str(notebook_id))
@@ -185,6 +171,7 @@ async def delete_notebook(notebook_id : PydanticObjectId, current_user = Depends
     await notebook.delete()
 
     return MessageResponse(message="Notebook Deleted")
+
 
 
 @router.post("/pin-notebook/{notebook_id}")
@@ -213,3 +200,4 @@ async def pin_notebook(
             "pinned_at": notebook.pinned_at,
         }
     }
+

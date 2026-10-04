@@ -1,6 +1,6 @@
 from enum import Enum
 from beanie import Document, Indexed, PydanticObjectId
-from typing import Optional
+from typing import Optional, List
 from datetime import datetime,  timezone
 from pydantic import Field
 
@@ -14,7 +14,7 @@ class FileStatus(str, Enum) :
 
 
 class DocumentFile(Document) : 
-    notebook_id : Indexed(PydanticObjectId) # type: ignore
+    notebook_id : Indexed(PydanticObjectId) # type: ignore 
     owner_id : PydanticObjectId
     filename : str
     file_size: int
@@ -24,6 +24,8 @@ class DocumentFile(Document) :
     status : FileStatus = FileStatus.processing
     total_chunks: int = 0
     error_message: Optional[str] = None
+    summary : Optional[str] = None
+    suggested_questions : Optional[List[str]] = Field(default_factory=list)
     uploaded_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     updated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 

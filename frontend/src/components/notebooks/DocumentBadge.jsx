@@ -1,10 +1,8 @@
-// import { FileText, Loader2, BookOpen, EllipsisVertical } from "lucide-react";
+// import { Loader2, BookOpen, EllipsisVertical } from "lucide-react";
 // import pdfIcon from "../../assets/pdf2.svg";
-// import { useRef, useState, useCallback, useEffect } from "react";
-// import { createPortal } from "react-dom";
-// import { IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
+// import { IconButton } from "@mui/material";
 // import { deleteIcon, editIcon } from "../common/Icons.jsx";
-// import DropdownMenu from "./DropdownMenu.jsx";
+// import DropdownMenu from "../common/DropdownMenu.jsx"
 // import toast from "react-hot-toast";
 // import { showToast } from "../common/showToast.jsx";
 
@@ -134,21 +132,20 @@
 
 
 
-
-
-
-
-
-
-
-
-
 import { Loader2 } from "lucide-react";
-import pdfIcon from "../../assets/pdf2.svg";
+import { pdfFileIcon, docsFileIcon, noteIcon } from "../../assets/assets.js";
+import { inferFileType } from "../../utils/fileType.js";
+
+const ICON_MAP = {
+    pdf: pdfFileIcon,
+    docx: docsFileIcon,
+    text: noteIcon,
+};
 
 export default function DocumentBadge({ doc, onClick }) {
     const isProcessing = doc?.status === "processing";
     const isReady = doc?.status === "ready";
+    const icon = ICON_MAP[inferFileType(doc?.filename)] ?? pdfFileIcon;
 
     const handleKeyDown = (e) => {
         if (e.key === "Enter" || e.key === " ") {
@@ -167,12 +164,12 @@ export default function DocumentBadge({ doc, onClick }) {
         >
             <div className="flex items-start gap-3">
                 <div className="w-8 h-8 flex items-center justify-center shrink-0">
-                    <img src={pdfIcon} alt="" className="w-full h-full object-contain" />
+                    <img src={icon} alt="" className="w-full h-full object-contain" />
                 </div>
 
                 <div className="min-w-0 flex-1">
                     <p className="text-[13px] font-medium text-content-default truncate leading-tight">
-                        {doc.filename} 
+                        {doc.filename}
                     </p>
 
                     <div className="flex items-center gap-1.5 mt-1">
@@ -198,6 +195,69 @@ export default function DocumentBadge({ doc, onClick }) {
         </div>
     );
 }
+
+
+
+
+
+
+
+
+// import { Loader2 } from "lucide-react";
+// import pdfIcon from "../../assets/pdf2.svg";
+
+// export default function DocumentBadge({ doc, onClick }) {
+//     const isProcessing = doc?.status === "processing";
+//     const isReady = doc?.status === "ready";
+
+//     const handleKeyDown = (e) => {
+//         if (e.key === "Enter" || e.key === " ") {
+//             e.preventDefault();
+//             onClick?.();
+//         }
+//     };
+
+//     return (
+//         <div
+//             onClick={onClick}
+//             role="button"
+//             tabIndex={0}
+//             onKeyDown={handleKeyDown}
+//             className="group relative p-3 rounded-xl bg-surface-emphasized hover:bg-primary/8 transition-colors duration-200 cursor-pointer"
+//         >
+//             <div className="flex items-start gap-3">
+//                 <div className="w-8 h-8 flex items-center justify-center shrink-0">
+//                     <img src={pdfIcon} alt="" className="w-full h-full object-contain" />
+//                 </div>
+
+//                 <div className="min-w-0 flex-1">
+//                     <p className="text-[13px] font-medium text-content-default truncate leading-tight">
+//                         {doc.filename}
+//                     </p>
+
+//                     <div className="flex items-center gap-1.5 mt-1">
+//                         {isProcessing && (
+//                             <>
+//                                 <Loader2 className="w-3 h-3 text-warning animate-spin shrink-0" />
+//                                 <span className="text-xs text-warning font-medium">Processing...</span>
+//                             </>
+//                         )}
+//                         {isReady && doc.page_count && (
+//                             <span className="text-xs text-success font-medium">
+//                                 {doc.page_count} pages · Ready
+//                             </span>
+//                         )}
+//                         {!isProcessing && !isReady && (
+//                             <span className="text-xs text-danger font-medium capitalize">
+//                                 {doc.status}
+//                             </span>
+//                         )}
+//                     </div>
+//                 </div>
+//             </div>
+//         </div>
+//     );
+// }
 
 
 

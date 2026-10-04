@@ -12,6 +12,14 @@ class AppException(Exception):
         super().__init__(message) 
 
 
+class BadRequestError(AppException):
+    """Request samajh aa gayi par us state me valid nahi (jaise galat/expired OTP, already verified)."""
+ 
+    status_code = 400
+    code = "BAD_REQUEST"
+ 
+
+
 class ValidationAppError(AppException): 
     """Jab input galat ho lekin Pydantic ke level pe nahi (business rule check)."""
     status_code = 422
@@ -34,6 +42,13 @@ class PermissionDeniedError(AppException):
     """Jab user ke paas resource access karne ka right na ho."""
     status_code = 403
     code = "PERMISSION_DENIED" 
+
+
+class EmailNotVerifiedError(PermissionDeniedError):
+    """Login pe: password sahi hai par email verify nahi hui.
+    Frontend is `code` ko dekhke user ko seedha verify screen pe bhejta hai (message text pe depend nahi)."""
+ 
+    code = "EMAIL_NOT_VERIFIED"
 
 
 class UnauthorizedError(AppException):

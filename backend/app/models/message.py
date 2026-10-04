@@ -10,8 +10,10 @@ class MessageRole(str, Enum):
     assistant = "assistant" 
  
  
-class Citation(BaseModel): 
-    page: int
+class Citation(BaseModel):  
+    id: Optional[int] = None
+    label : Optional[str] = None
+    page: int 
     snippet: str 
 
 

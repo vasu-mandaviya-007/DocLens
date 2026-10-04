@@ -407,8 +407,7 @@ import {
     useDeleteNotebook,
     usePinNotebook
 } from "../hooks/useNotebooks.js";
-import { inferFileType } from "../../../backend/app/utils/fileType.js";
-
+import { inferFileType } from "../utils/fileType.js";
 
 
 const SPINE_COLOR_COUNT = 6;
@@ -565,7 +564,7 @@ export default function Home() {
                 />
 
                 <ConfirmDialog
-                    open={!!deletingNotebookId}
+                    open={!!deletingNotebookId} 
                     title="Delete Notebook"
                     confirmText="Delete"
                     danger

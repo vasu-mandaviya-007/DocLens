@@ -1,64 +1,15 @@
-// /**
-//  * Shared label + input field for auth forms (Login, Register, ForgotPassword).
-//  * One place controls both the label style and the input style — no more
-//  * copy-pasting the label className template literal into every form field.
-//  */
-// const AuthField = ({
-//     id,
-//     label,
-//     type = "text",
-//     value,
-//     onChange,
-//     disabled = false,
-//     required = false, 
-//     placeholder,  
-// }) => {
-//     return (
-//         <div className="flex flex-col items-stretch justify-start gap-2"> 
 
-//             <label htmlFor={id} className={`auth-label ${disabled ? "is-disabled" : ""}`}> 
-//                 {label} 
-//             </label>
-
-//             <input
-//                 type={type}
-//                 id={id}
-//                 name={id}
-//                 required={required}
-//                 disabled={disabled}
-//                 value={value}
-//                 onChange={onChange} 
-//                 className="clerk-input" 
-//                 placeholder={placeholder}
-//             />
-//         </div>
-//     );
-// };
-
-// export default AuthField;
-
-
-
-
-
-
-
-
-/**
- * Shared label + input field for auth forms (Login, Register, ForgotPassword).
- * One place controls both the label style and the input style — no more
- * copy-pasting the label className template literal into every form field.
- */
 const AuthField = ({
     id,
     label,
-    type = "text",
+    type = "text", 
     value,
     onChange,
     disabled = false,
     required = false, 
     placeholder,
     error,
+    autoComplete,
 }) => {
     return (
         <div className="flex flex-col items-stretch justify-start gap-2">
@@ -75,6 +26,7 @@ const AuthField = ({
                 disabled={disabled}
                 value={value}
                 onChange={onChange}
+                autoComplete={autoComplete}
                 className={`clerk-input ${error ? "clerk-input-error" : ""}  `}
                 placeholder={placeholder}
                 aria-invalid={!!error}

@@ -2,8 +2,8 @@ import shutil
 import os
 from fastapi import APIRouter, UploadFile, File
 
-from app.services.pdf_service import read_pdf
-from app.services.chunk_service import chunk_text
+from app.services.documents.pdf_service import read_pdf
+from app.services.documents.chunk_service import chunk_text
 from app.schemas.notebook import UploadResponse 
 
 router = APIRouter()

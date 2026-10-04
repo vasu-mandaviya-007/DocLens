@@ -1,0 +1,92 @@
+backend/
+├── app/
+│   ├── core/
+│   │   ├── chroma_client.py
+│   │   ├── cloudinary_config.py
+│   │   ├── config.py
+│   │   ├── db.py
+│   │   ├── exceptions.py
+│   │   ├── gemini_client.py
+│   │   ├── groq_client.py
+│   │   ├── olama_client.py
+│   │   ├── security.py
+│   │   └── validators.py
+│   ├── dependencies/
+│   │   └── auth_deps.py
+│   ├── models/
+│   │   ├── __init__.py
+│   │   ├── conversation.py
+│   │   ├── message.py
+│   │   ├── notebook.py
+│   │   ├── notebook_file.py
+│   │   ├── PasswordReset.py
+│   │   ├── schemas.py
+│   │   ├── usage_logs.py
+│   │   └── User.py
+│   ├── routes/
+│   │   ├── __init__.py
+│   │   ├── auth copy.py
+│   │   ├── auth.py
+│   │   ├── chat.py
+│   │   ├── documents.py
+│   │   ├── github_auth.py
+│   │   ├── google_auth.py
+│   │   ├── notebooks copy.py
+│   │   ├── notebooks.py
+│   │   ├── quota.py
+│   │   └── upload.py
+│   ├── schemas/
+│   │   ├── __init__.py
+│   │   ├── auth.py
+│   │   └── notebook.py
+│   ├── services/
+│   │   ├── chat/
+│   │   │   ├── chat_service.py
+│   │   │   ├── citations.py
+│   │   │   └── prompts.py
+│   │   ├── __init__.py
+│   │   ├── call_llm.py
+│   │   ├── chat_service copy.py
+│   │   ├── chat_service.py
+│   │   ├── chunk_service.py
+│   │   ├── cloudinary_service.py
+│   │   ├── document_extractor.py
+│   │   ├── docx_service.py
+│   │   ├── email_service.py
+│   │   ├── embedding_service.py
+│   │   ├── logger.py
+│   │   ├── otp_services.py
+│   │   ├── pdf_service.py
+│   │   ├── processing_service.py
+│   │   ├── txt_service.py
+│   │   ├── user_service.py
+│   │   └── vector_store.py
+│   ├── utils/
+│   │   ├── cookie_utils.py
+│   │   ├── email.py
+│   │   ├── fileType.js
+│   │   ├── pdf_utils.py
+│   │   └── text_utils.py
+│   ├── __init__.py
+│   └── main.py
+├── chroma_store/
+│   ├── b8fe55bd-7015-41b4-ba5a-b6b835c110f1/
+│   │   ├── data_level0.bin
+│   │   ├── header.bin
+│   │   ├── length.bin
+│   │   └── link_lists.bin
+│   └── chroma.sqlite3
+├── data/
+│   └── web_dev_resume.pdf
+├── .dockerignore
+├── .env
+├── debug_extract.py
+├── Dockerfile
+├── extracted_debug.txt
+├── output.wav
+├── requirements.txt
+├── run.py
+├── show_tree.py
+├── test.py
+├── tree.txt
+└── Unit-1.pdf

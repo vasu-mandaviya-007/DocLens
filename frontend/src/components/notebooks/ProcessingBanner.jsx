@@ -14,4 +14,4 @@ const ProcessingBanner = () => {
 
 }
 
-export default ProcessingBanner 
+export default ProcessingBanner;

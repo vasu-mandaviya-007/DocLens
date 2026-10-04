@@ -96,7 +96,7 @@
 //                             <p className="text-[11px] text-zinc-400 dark:text-zinc-600 leading-relaxed">
 //                                 {document.status === "processing"
 //                                     ? "The document is being processed. Preview will appear here once it's ready."
-//                                     : "The document preview URL is not yet available from the backend."}
+//                                     : "The document preview URL is not yet available from the "}
 //                             </p>
 //                         </div>
 //                     </div>
@@ -184,17 +184,20 @@
 
 
 
+ 
 
 
 
 
-
-import { forwardRef, useImperativeHandle, useRef } from 'react';
-import { PDFViewer } from '@embedpdf/react-pdf-viewer';
-import { FileText } from 'lucide-react';
+import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
+import { darkTheme, PDFViewer } from '@embedpdf/react-pdf-viewer';
+import { Copy, FileText, X } from 'lucide-react';
+import { useTheme } from '../../context/ThemeContext.jsx';
 
 const PdfPreviewPanel = forwardRef(function PdfPreviewPanel({ document, documentUrl }, ref) {
+
     const viewerRef = useRef(null);
+    const { isDark } = useTheme()
 
     useImperativeHandle(ref, () => ({
         jumpToPage: async (pageNumber) => {
@@ -222,6 +225,100 @@ const PdfPreviewPanel = forwardRef(function PdfPreviewPanel({ document, document
         },
     }));
 
+
+
+
+
+    // useEffect(() => {
+    //     const setupCustomUI = async () => {
+    //         const registry = await viewerRef.current?.registry;
+    //         if (!registry) return;
+
+    //         const commands = registry.getPlugin('commands').provides();
+    //         const ui = registry.getPlugin('ui').provides();
+
+    //         // Register a custom command
+    //         commands.registerCommand({
+    //             id: 'custom.hello',
+    //             label: 'Say Hello',
+    //             // icon: 'smiley',
+    //             action: () => alert('Hello from my custom button!')
+    //         });
+
+    //         const schema = ui.getSchema();
+    //         const toolbar = schema.toolbars['main-toolbar'];
+
+    //         // Clone and modify the items
+    //         const items = JSON.parse(JSON.stringify(toolbar.items));
+    //         const rightGroup = items.find(item => item.id === 'right-group');
+
+    //         if (rightGroup) {
+    //             // Add our custom button
+    //             rightGroup.items.push({
+    //                 type: 'command-button',
+    //                 id: 'smiley-button',
+    //                 commandId: 'custom.hello',
+    //                 variant: 'icon'
+    //             });
+    //         }
+
+    //         // Apply the changes
+    //         ui.mergeSchema({
+    //             toolbars: { 'main-toolbar': { ...toolbar, items } }
+    //         });
+    //     };
+
+    //     setupCustomUI();
+    // }, [viewerRef]);
+
+
+    const [selection, setSelection] = useState(null)
+    const [hasSelection, setHasSelection] = useState(false) 
+    const [lastAction, setLastAction] = useState(null)
+
+    // Update theme when preference changes
+    useEffect(() => {
+        viewerRef.current?.container?.setTheme({ preference: isDark ? "dark" : "light" })
+    }, [isDark])
+
+    // Get selection capability once and subscribe to changes
+    useEffect(() => {
+        const cleanups = []
+        console.log("hi");
+
+
+        viewerRef.current?.registry?.then((registry) => {
+            const selectionPlugin = registry.getPlugin('selection')?.provides()
+
+            const docSelection = selectionPlugin?.forDocument('chat-doc')
+
+            if (!docSelection) return
+
+            setSelection(docSelection)
+
+            // Subscribe to selection changes
+            cleanups.push(
+                docSelection.onSelectionChange((currentSelection) => {
+                    setHasSelection(!!currentSelection)
+                }),
+            )
+        })
+
+        return () => cleanups.forEach((cleanup) => cleanup())
+    }, [viewerRef])
+
+    const handleCopy = () => {
+        selection?.copyToClipboard()
+        setLastAction('Copied to clipboard!')
+        setTimeout(() => setLastAction(null), 2000)
+    }
+
+    const handleClear = () => {
+        selection?.clear()
+        setLastAction('Selection cleared')
+        setTimeout(() => setLastAction(null), 2000)
+    }
+
     if (!documentUrl) {
         return (
             <div className="h-full flex flex-col items-center justify-center gap-2.5 text-center px-6">
@@ -234,13 +331,73 @@ const PdfPreviewPanel = forwardRef(function PdfPreviewPanel({ document, document
     }
 
     return (
+
         <div className="relative flex-1 overflow-hidden">
+
+            {/* <div className="flex flex-wrap items-center justify-between gap-4 rounded-lg border border-gray-200 bg-gray-50 p-4 dark:border-gray-700 dark:bg-gray-800">
+                <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-2">
+                        <button
+                            onClick={handleCopy}
+                            disabled={!hasSelection}
+                            className="flex items-center gap-2 rounded bg-blue-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-blue-700 disabled:bg-gray-300 disabled:text-gray-500 dark:disabled:bg-gray-700 dark:disabled:text-gray-500"
+                        >
+                            <Copy size={16} />
+                            Copy
+                        </button>
+                        <button
+                            onClick={handleClear}
+                            disabled={!hasSelection}
+                            className="flex items-center gap-2 rounded bg-gray-200 px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-300 disabled:opacity-50 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
+                        >
+                            <X size={16} />
+                            Clear
+                        </button>
+                    </div>
+                    {lastAction && (
+                        <span className="animate-fade-in text-sm text-green-600 dark:text-green-400">
+                            {lastAction}
+                        </span>
+                    )}
+                </div>
+                <div className="text-xs text-gray-500">
+                    Select text in the PDF to enable buttons
+                </div>
+            </div> */}
+
             <PDFViewer
+                // key={`${documentUrl}-${isDark ? "dark" : "light"}`}
+                ref={viewerRef}
                 config={{
-                    src: documentUrl,
-                    disabledCategories: ["sidebar", "insert", "form", "shapes", "comments", "annotation", "redaction"]
+                    documentManager: {
+                        initialDocuments: [
+                            {
+                                url: documentUrl,
+                                documentId: "chat-doc",
+                                autoActivate: true,
+                            }
+                        ]
+                    },
+                    // disabledCategories: ["sidebar", "insert", "form", "shapes", "comments", "annotation", "redaction"],
+                    disabledCategories: ["insert", "form", "shapes", "redaction", "annotation", "comments",],
+                    theme: {
+                        // preference: isDark ? "dark" : "light",
+                        dark: {
+                            accent: {
+                                primary: "var(--color-primary)",
+                                foreground: "var(--color-content-default)",
+                            },
+                            background: {
+                                app: "var(--color-surface-emphasized)",
+                                surface: "var(--color-surface-default)",
+                            }
+                        }
+                    }
                 }}
-                style={{ height: '100%', width: '100%' }}
+                className='bg-red-500 '
+                style={
+                    { height: '100%', width: '100%' }
+                }
             />
         </div>
     );

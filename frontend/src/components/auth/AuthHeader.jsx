@@ -6,14 +6,14 @@ import { Pencil } from "lucide-react";
  */
 const AuthHeader = ({ icon: Icon, title, subtitle, email, onEditEmail }) => {
 
-    if (onEditEmail) {
+    if (onEditEmail) { 
         return (
             <div className="flex flex-col items-stretch justify-start gap-1 text-center">
-                <div className="w-10 h-10 mx-auto rounded-[10px] bg-[#131316] flex items-center justify-center text-white mb-4">
+                <div className="w-12 h-12 mx-auto rounded-[10px] bg-[#131316] flex items-center justify-center text-white mb-4">
                     <Icon className="text-sm" />
                 </div>
 
-                <h1 className="auth-header-title">{title}</h1>
+                <h1 className="auth-header-title">{title}</h1>  
 
                 <p className="login-body text-sm text-clerk-muted-foreground text-center mt-1">
                     {subtitle}
@@ -35,7 +35,7 @@ const AuthHeader = ({ icon: Icon, title, subtitle, email, onEditEmail }) => {
 
     return (
         <div className="flex items-center flex-col">
-            <div className="w-10 h-10 rounded-[10px] bg-[#131316] flex items-center justify-center text-white mb-4">
+            <div className="w-12 h-12 rounded-[10px] bg-[#131316] flex items-center justify-center text-white mb-4">
                 <Icon className="text-sm" />
             </div>
 
