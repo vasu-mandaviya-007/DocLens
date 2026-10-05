@@ -2,7 +2,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { uploadDocument } from "../apis/notebookApi.js";
 
-export function useDocumentUpload(notebook_id, setDoc, setDocumentUrl, documentsExhausted, setUsage) {
+export function useDocumentUpload(notebook_id, setDoc, setDocumentUrl, documentsExhausted, usage, setUsage) {
 
     const [pendingFile, setPendingFile] = useState(null); 
     const [isUploading, setIsUploading] = useState(false);

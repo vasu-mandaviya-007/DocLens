@@ -18,6 +18,7 @@ const SPINE_COLORS = [
     "bg-teal-600",
 ];
 
+
 const CARD_BG_COLORS = [
     "bg-indigo-50/50",
     "bg-red-50/50",
@@ -26,6 +27,9 @@ const CARD_BG_COLORS = [
     "bg-yellow-50/50",
     "bg-teal-50/50",
 ];
+
+
+export const LIST_COLS = "grid-cols-[minmax(0,1fr)_40px] md:grid-cols-[minmax(0,1fr)_120px_140px_40px]";
 
 export function getSpineColor(colorIndex) {
     return SPINE_COLORS[colorIndex % SPINE_COLORS.length];
@@ -53,7 +57,7 @@ export function NotebookListRow({ notebook, isLast }) {
             className={`grid grid-cols-[1fr_120px_140px_40px] items-center px-5 py-4 cursor-pointer transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-800 ${!isLast ? "border-b border-zinc-200 dark:border-zinc-800" : ""
                 }`}
         >
-            <div className="flex items-center gap-3 min-w-0"> 
+            <div className="flex items-center gap-3 min-w-0">
                 <span className={`w-1.5 h-6 rounded-full shrink-0 ${getSpineColor(notebook.color)}`} />
                 <span className="text-sm font-medium truncate text-zinc-900 dark:text-zinc-100">
                     {notebook.title}
@@ -90,7 +94,7 @@ export function NotebookGridCard({ notebook, onEdit, onPin, onDelete }) {
     const navigate = useNavigate();
     const [menuOpen, setMenuOpen] = useState(false);
 
-    const isPinned = notebook?.pinned || false; 
+    const isPinned = notebook?.pinned || false;
 
     const menuRef = useRef(null);
 
@@ -120,40 +124,8 @@ export function NotebookGridCard({ notebook, onEdit, onPin, onDelete }) {
             <div className="flex flex-col w-full h-full">
 
                 <div className="flex justify-between items-start w-full ">
-                    <div>
-                        <img src={icon} className="object-cover h-14" alt="File Icon" />
-                    </div>
 
-                    {/* <div className="relative">  
-                        <button
-                            onClick={(e) => { e.stopPropagation(); setMenuOpen((p) => !p); }}
-                            className="rounded-full p-2 hover:bg-gray-200 dark:hover:bg-zinc-800"
-                        >
-                            <EllipsisVertical className="size-4" />
-                        </button>
-
-                        {menuOpen && ( 
-
-                            <div ref={menuRef} className="list-none text-content-default popover-menu min-w-50 max-w-70 absolute top-full left-0 rounded-md overflow-hidden shadow-lg  z-10">
-
-                                <List sx={{ px: 1, bgcolor: 'background.paper' }} >
-
-                                    {menuItems.map((item) => (
-                                        <ListItem disablePadding >
-                                            <ListItemButton onClick={(e) => { e.stopPropagation(), item.action() }} >
-                                                <ListItemIcon sx={{ color: "inherit" }} >
-                                                    {item.icon}
-                                                </ListItemIcon>
-                                                <ListItemText sx={{ "& .MuiListItemText-primary": { fontWeight: 500, fontSize: "15px" } }} primary={item.label} />
-                                            </ListItemButton>
-                                        </ListItem>
-                                    ))}
-
-                                </List>
-
-                            </div>
-                        )}
-                    </div>  */}
+                    <img src={icon} className="h-12 object-cover sm:h-14" alt="File Icon" />
 
                     <div className="flex items-center gap-1">
                         {
@@ -169,7 +141,7 @@ export function NotebookGridCard({ notebook, onEdit, onPin, onDelete }) {
                             )
                         }
 
-                        <DropdownMenu 
+                        <DropdownMenu
                             align="left"
                             width={220}
                             items={menuItems}
@@ -186,7 +158,7 @@ export function NotebookGridCard({ notebook, onEdit, onPin, onDelete }) {
 
                 </div>
 
-                <div className="flex flex-col w-full h-full mt-5 pl-2 "> 
+                <div className="flex flex-col w-full h-full mt-5 pl-2 ">
                     <p className="text-lg grow font-medium line-clamp-2 wrap-break-word text-zinc-900 dark:text-zinc-100">
                         {notebook.title}
                     </p>

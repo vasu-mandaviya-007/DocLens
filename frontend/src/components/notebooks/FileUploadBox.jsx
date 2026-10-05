@@ -1,6 +1,6 @@
 // import React, { useRef, useState, useCallback, useEffect } from "react";
 // import { UploadCloud, X, CheckCircle2, AlertTriangle, Loader2 } from "lucide-react";
-// import { pdfFileIcon } from "../assets/assets.js";
+// import { pdfFileIcon } from "../../assets/assets.js";
 
 
 // const CATEGORY_MAP = {
@@ -232,11 +232,49 @@
 // import React, { useRef, useState, useCallback } from "react";
 // import { UploadCloud, X, AlertTriangle } from "lucide-react";
 
-// import { pdfFileIcon } from "../assets/assets.js";
 // import { IconButton } from "@mui/material";
+// import { docsFileIcon, noteIcon, pdfFileIcon } from "../../assets/assets.js";
+
+// // const CATEGORY_MAP = {
+// //     pdf: { exts: ["pdf"], mimes: ["application/pdf"], icon: pdfFileIcon },
+// // };
 
 // const CATEGORY_MAP = {
-//     pdf: { exts: ["pdf"], mimes: ["application/pdf"], icon: pdfFileIcon },
+//     pdf: {
+//         exts: ["pdf"],
+//         mimes: ["application/pdf"],
+//         icon: pdfFileIcon,
+//     },
+//     docx: {
+//         exts: ["docx"],
+//         mimes: ["application/vnd.openxmlformats-officedocument.wordprocessingml.document"],
+//         icon: docsFileIcon,
+//     },
+//     txt: {
+//         exts: ["txt"],
+//         mimes: ["text/plain"],
+//         icon: noteIcon,
+//     },
+//     md: {
+//         exts: ["md"],
+//         mimes: ["text/markdown", "text/x-markdown"],
+//         icon: noteIcon,
+//     },
+//     md: {
+//         exts: ["py"],
+//         mimes: ["text/markdown", "text/x-markdown"],
+//         icon: noteIcon,
+//     },
+//     // md: {
+//     //     exts: ["md"],
+//     //     mimes: ["text/markdown", "text/x-markdown"],
+//     //     icon: noteIcon,
+//     // },
+//     // md: {
+//     //     exts: ["md"],
+//     //     mimes: ["text/markdown", "text/x-markdown"],
+//     //     icon: noteIcon,
+//     // },
 // };
 
 // const ALL_ALLOWED_EXTS = Object.values(CATEGORY_MAP).flatMap((c) => c.exts);
@@ -443,16 +481,42 @@
 
 
 
+
+
+
 // import React, { useRef, useState, useCallback } from "react";
-// import { UploadCloud, X, AlertTriangle } from "lucide-react"; 
-// import { pdfFileIcon } from "../../assets/assets.js";
-// import { IconButton } from "@mui/material";
+// import { UploadCloud, X, AlertTriangle } from "lucide-react";
+// import { pdfFileIcon, docsFileIcon, noteIcon } from "../../assets/assets.js";
+// import { IconButton } from "@mui/material"; 
+
+
 
 // const CATEGORY_MAP = {
-//     pdf: { exts: ["pdf"], mimes: ["application/pdf"], icon: pdfFileIcon },
+//     pdf: {
+//         exts: ["pdf"],
+//         mimes: ["application/pdf"],
+//         icon: pdfFileIcon,
+//     },
+//     docx: {
+//         exts: ["docx"],
+//         mimes: ["application/vnd.openxmlformats-officedocument.wordprocessingml.document"],
+//         icon: docsFileIcon,
+//     },
+//     txt: {
+//         exts: ["txt"],
+//         mimes: ["text/plain"],
+//         icon: noteIcon,
+//     },
+//     md: {
+//         exts: ["md"],
+//         mimes: ["text/markdown", "text/x-markdown"],
+//         icon: noteIcon,
+//     },
 // };
 
+
 // const ALL_ALLOWED_EXTS = Object.values(CATEGORY_MAP).flatMap((c) => c.exts);
+
 
 // function getExt(name = "") {
 //     return name.split(".").pop().toLowerCase();
@@ -477,7 +541,7 @@
 
 // export default function FileUploadBox({
 //     maxSizeMB = 20,
-//     acceptedExts = ALL_ALLOWED_EXTS,
+//     acceptedExts = ALL_ALLOWED_EXTS, 
 //     uploading,
 //     onFileChange,
 // }) {
@@ -631,53 +695,70 @@
 
 
 
+
+
+
+
+
+
+
 import React, { useRef, useState, useCallback } from "react";
 import { UploadCloud, X, AlertTriangle } from "lucide-react";
 import { pdfFileIcon, docsFileIcon, noteIcon } from "../../assets/assets.js";
 import { IconButton } from "@mui/material";
 
-// const CATEGORY_MAP = {
-//     pdf: {
-//         exts: ["pdf"],
-//         mimes: ["application/pdf"],
-//         icon: pdfFileIcon,
-//     },
-//     docx: {
-//         exts: ["docx"],
-//         mimes: ["application/vnd.openxmlformats-officedocument.wordprocessingml.document"],
-//         icon: docsFileIcon,
-//     },
-//     txt: {
-//         exts: ["txt"],
-//         mimes: ["text/plain"],
-//         icon: noteIcon,
-//     },
-// };
+// Backend (document_extractor.py) ke _CODE_EXTENSIONS se match — single
+// source of truth do jagah (Python + JS) maintain karna padta hai kyunki
+// cross-language import possible nahi, isliye in dono ko sync rakhna zaroori
+// hai jab bhi backend me naya extension add/remove ho.
+const CODE_EXTENSIONS = [
+    "py", "js", "jsx", "ts", "tsx", "java", "c", "cpp", "h", "hpp", "cs", "go", "rs", "rb", "php",
+    "kt", "swift", "sql", "sh", "html", "css", "json", "yaml", "yml", "xml", "toml", "ini", "csv", 
+];
 
 const CATEGORY_MAP = {
     pdf: {
         exts: ["pdf"],
         mimes: ["application/pdf"],
         icon: pdfFileIcon,
+        label: "PDF",
     },
     docx: {
         exts: ["docx"],
         mimes: ["application/vnd.openxmlformats-officedocument.wordprocessingml.document"],
         icon: docsFileIcon,
-    },
-    txt: {
-        exts: ["txt"],
-        mimes: ["text/plain"],
-        icon: noteIcon,
+        label: "Word",
     },
     md: {
         exts: ["md"],
         mimes: ["text/markdown", "text/x-markdown"],
         icon: noteIcon,
+        label: "Markdown",
+    },
+    txt: {
+        exts: ["txt"],
+        mimes: ["text/plain"],
+        icon: noteIcon,
+        label: "Text/Code",
+    },
+    txt: {
+        // "txt" ke saath backend jaisa hi saara code/data-extensions set —
+        // backend bhi inhe txt-extractor se hi process karta hai.
+        exts: ["txt", ...CODE_EXTENSIONS],
+        mimes: ["text/plain"],
+        icon: noteIcon,
+        label: "Text/Code",
     },
 };
 
 const ALL_ALLOWED_EXTS = Object.values(CATEGORY_MAP).flatMap((c) => c.exts);
+
+// UI me dikhane ke liye — 30 extensions ek-ek karke list karne ke bajaay
+// chhoti, readable category-names (file-picker/accept-attribute abhi bhi
+// poori ext-list use karta hai, ye sirf display ke liye hai).
+const FRIENDLY_LABEL = Object.values(CATEGORY_MAP)
+    .map((c) => c.label)
+    .join(", ");
 
 function getExt(name = "") {
     return name.split(".").pop().toLowerCase();
@@ -718,7 +799,7 @@ export default function FileUploadBox({
         const ext = getExt(file.name);
         if (file.size === 0) return "File is empty.";
         if (!acceptedExts.includes(ext)) {
-            return `".${ext || "unknown"}" is not supported. Allowed: ${acceptedExts.join(", ").toUpperCase()}.`;
+            return `".${ext || "unknown"}" is not supported. Allowed: ${FRIENDLY_LABEL}.`;
         }
         if (file.size > maxSizeBytes) return `File exceeds the ${maxSizeMB}MB limit.`;
         return null;
@@ -726,7 +807,7 @@ export default function FileUploadBox({
 
     const setFile = useCallback(
         (file) => {
-            if (!file || uploading) return; // upload chalte hue naya file select/drop block
+            if (!file || uploading) return;
             setError("");
 
             const err = validate(file);
@@ -795,8 +876,8 @@ export default function FileUploadBox({
                     onDragLeave={onDragLeave}
                     onDragOver={(e) => e.preventDefault()}
                     className={`rounded-xl border border-dashed p-8 text-center transition-colors duration-200 outline-none
-                        ${uploading ? "opacity-50 cursor-not-allowed border-lines-divider" : "cursor-pointer border-lines-divider hover:border-primary/40 hover:bg-primary/[0.03]"}
-                        ${isDragging ? "border-primary bg-primary/[0.05]" : ""}`}
+                        ${uploading ? "opacity-50 cursor-not-allowed border-lines-divider" : "cursor-pointer border-lines-divider hover:border-primary/40 hover:bg-primary/3"}
+                        ${isDragging ? "border-primary bg-primary/5" : ""}`}
                 >
                     <input
                         ref={inputRef}
@@ -814,7 +895,7 @@ export default function FileUploadBox({
                         <span className="text-primary">Click to upload</span> or drag and drop
                     </p>
                     <p className="mt-1 text-[12px] text-content-deemphasized">
-                        {acceptedExts.join(", ").toUpperCase()} &middot; Max {maxSizeMB}MB
+                        {FRIENDLY_LABEL} &middot; Max {maxSizeMB}MB
                     </p>
                 </div>
             ) : (

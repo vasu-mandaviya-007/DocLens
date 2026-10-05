@@ -71,46 +71,33 @@
 
 
 
-
-import { forwardRef, useEffect } from "react";
+import { forwardRef } from "react";
 import DocxPreviewPanel from "./DocxPreviewPanel.jsx";
 import TextPreviewPanel from "./TextPreviewPanel.jsx";
 import MarkdownPreviewPanel from "./MarkdownPreviewPanel.jsx";
-import HeadlessPdfViewer from "./customPdfViewer/HeadlessPdfViewer.jsx";
+import HeadlessPdfViewer from "./customPdfViewer/HeadlessPdfViewer.jsx"; 
 import { inferFileType } from "../../utils/fileType.js";
 
-/**
- * onReady: preview jump/highlight ke liye tayyar hone par call hota hai.
- * NotebookSidebar isse citation-click ka jump tab tak rokta hai jab tak viewer load na ho jaye
- * (pehle PDF load hone se pehle hi jump chal ke chup-chaap gir jata tha).
- */
+
 const DocumentPreviewPanel = forwardRef(function DocumentPreviewPanel(
     { document, documentUrl, onExplain, onReady },
     ref
 ) {
     const fileType = inferFileType(document?.filename);
 
-    // Docx aur Markdown preview me jump/highlight nahi hai (koi viewer ref nahi): turant "ready" bol do,
-    // warna sidebar ka ruka hua citation hamesha atka rehta.
-    const hasNoViewer = fileType === "docx" || fileType === "markdown";
-    useEffect(() => {
-        if (hasNoViewer) onReady?.();
-    }, [hasNoViewer, onReady]);
-
     if (fileType === "docx") {
-        return <DocxPreviewPanel documentUrl={documentUrl} />;
+        return <DocxPreviewPanel ref={ref} documentUrl={documentUrl} onReady={onReady} />;
     }
     if (fileType === "markdown") {
-        return <MarkdownPreviewPanel documentUrl={documentUrl} />;
+        return <MarkdownPreviewPanel ref={ref} documentUrl={documentUrl} onReady={onReady} />;
     }
     if (fileType === "text") {
-        return <TextPreviewPanel ref={ref} documentUrl={documentUrl} onReady={onReady} onExplain={onExplain} />;
+        return <TextPreviewPanel ref={ref} documentUrl={documentUrl} onReady={onReady} />;
     }
     return <HeadlessPdfViewer ref={ref} documentUrl={documentUrl} onExplain={onExplain} onReady={onReady} />;
 });
 
 export default DocumentPreviewPanel;
-
 
 
 

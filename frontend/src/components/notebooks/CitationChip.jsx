@@ -138,7 +138,7 @@ const shortLabel = (label) => label.replace(/^Page /, "p.").replace(/^Lines /, "
 
 export default function CitationChip({ citation, onViewSource }) { 
     const [anchorEl, setAnchorEl] = useState(null);
-    const [placement, setPlacement] = useState("bottom");
+    const [placement, setPlacement] = useState("bottom"); 
     const closeTimer = useRef(null);
     const open = Boolean(anchorEl);
 
@@ -175,11 +175,11 @@ export default function CitationChip({ citation, onViewSource }) {
         <>
             <button
                 type="button"
+                onClick={()=> onViewSource(citation)}
                 onMouseEnter={show}
                 onMouseLeave={hide}
                 onFocus={show}
                 onBlur={hide}
-                onClick={show}
                 className="inline-flex items-center mx-0.5 px-1.5 rounded text-[11px] font-medium align-baseline bg-primary/10 text-primary hover:bg-primary/20 transition-colors cursor-pointer"
             >
                 {shortLabel(label)}

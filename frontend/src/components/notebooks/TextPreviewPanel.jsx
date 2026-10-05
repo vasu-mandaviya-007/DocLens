@@ -430,26 +430,28 @@ import { useTextSelection } from "../../hooks/useTextSelection.js";
 import { createPortal } from "react-dom";
 import { copyText } from "../../hooks/useCopyToClipboard.js";
 import { showToast } from "../common/showToast.jsx";
+import { getLineRanges } from "../../utils/lineRanges.js";
 
 
 const LINE_BREAK = /\r\n|[\n\r\v\f\x1c-\x1e\x85\u2028\u2029]/g;
 
 
 
-function getLineRanges(text) {
-    const ranges = [];
-    let start = 0;
-    for (const match of text.matchAll(LINE_BREAK)) {
-        ranges.push([start, match.index]);
-        start = match.index + match[0].length;
-    }
-    if (start < text.length) ranges.push([start, text.length]); // aakhri line bina newline ke
-    return ranges;
-}
+// function getLineRanges(text) {
+//     const ranges = [];
+//     let start = 0;
+//     for (const match of text.matchAll(LINE_BREAK)) {
+//         ranges.push([start, match.index]);
+//         start = match.index + match[0].length;
+//     }
+//     if (start < text.length) ranges.push([start, text.length]); // aakhri line bina newline ke
+//     return ranges;
+// }
 
 
 
 const TextPreviewPanel = forwardRef(function TextPreviewPanel({ documentUrl, onReady, onExplain }, ref) {
+    
     const [text, setText] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
@@ -491,9 +493,11 @@ const TextPreviewPanel = forwardRef(function TextPreviewPanel({ documentUrl, onR
 
             // Line numbers na hon (purane chunks) to text-search fallback
             highlightText: (searchText) => {
+
                 if (!searchText || text == null) return;
 
                 const words = searchText.trim().split(/\s+/).filter(Boolean);
+                
                 if (words.length === 0) return;
 
                 // Har word escape karke beech me \s+ : newline, tab, double space sab chal jate hain
@@ -508,7 +512,9 @@ const TextPreviewPanel = forwardRef(function TextPreviewPanel({ documentUrl, onR
                 // trigger: har click pe naya object, taaki scroll dobara chale
                 setHighlightRange({ start: match.index, end: match.index + match[0].length, trigger: Date.now() });
             },
+
         }),
+
         [text, lineRanges]
     );
 

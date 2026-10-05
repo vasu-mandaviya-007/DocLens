@@ -327,7 +327,7 @@ export default function UploadPrompt({
     progress,
     handleUpload,
     documentsExhausted = false,
-    documentsRemaining = null,
+    documentsRemaining = null, 
 }) {
 
     return (

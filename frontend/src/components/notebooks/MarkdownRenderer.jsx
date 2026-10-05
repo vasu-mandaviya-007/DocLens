@@ -6,17 +6,18 @@ import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 import CitationChip from "./CitationChip.jsx";
 import { markdownComponents } from "./MarkdownComponents.jsx";
-import remarkCitations, { CITE_PREFIX } from "./remarkCitations.js"; 
+import remarkCitations, { CITE_PREFIX } from "./remarkCitations.js";  
 
 // Module-level constants: plugin arrays stable rehte hain, to har render pe markdown re-parse setup nahi hota.
 const REMARK_PLUGINS = [remarkGfm, remarkMath, remarkCitations];
 const REHYPE_PLUGINS = [rehypeKatex];
 
 const MarkdownRenderer = memo(function MarkdownRenderer({ text, citations, onCitationClick }) {
+
     const components = useMemo(
         () => ({
             ...markdownComponents,
-            a: ({ href, children }) => {
+            a: ({ href, children }) => { 
                 if (href?.startsWith(CITE_PREFIX)) {
                     const id = Number(href.slice(CITE_PREFIX.length));
                     const citation = citations?.find((c) => c.id === id);

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { X } from "lucide-react";
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, TextField } from "@mui/material";
-import { dialogSx, GrowTransition } from "../../utils/dialogSx.jsx";
+import { dialogSx, GrowTransition } from "../../utils/dialogSx.jsx"; 
 
 export const RenameNotebookModal = ({ open, onClose, notebook, onSave }) => {
 
@@ -125,21 +125,3 @@ export const RenameNotebookModal = ({ open, onClose, notebook, onSave }) => {
 }
 
 export default RenameNotebookModal;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

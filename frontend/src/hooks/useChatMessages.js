@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import toast from "react-hot-toast";
 import { getMessages, sendMessageStream } from "../apis/notebookApi.js";
 
-export function useChatMessages(notebookId, isDocReady, docStatus, questionsExhausted, setUsage, setLimitModal) {
+export function useChatMessages(notebookId, isDocReady, docStatus, questionsExhausted, usage, setUsage, setLimitModal) {
 
     const [messages, setMessages] = useState([]); 
     const [input, setInput] = useState("");
@@ -199,7 +199,7 @@ export function useChatMessages(notebookId, isDocReady, docStatus, questionsExha
                         questions: { ...prev.questions, used: prev.questions.used + 1 },
                     });
                 },
-                onError: (msg, errorObj) => {
+                onError: (msg, errorObj) => { 
                     setIsTyping(false);
 
                     if (errorObj?.code === "RATE_LIMIT_EXCEEDED") {

@@ -120,4 +120,4 @@ const NotebookHeader = ({ title, setTitle, notebook_id }) => {
 
 }
 
-export default NotebookHeader
+export default NotebookHeader;

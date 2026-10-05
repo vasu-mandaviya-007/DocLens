@@ -1,39 +1,13 @@
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import { useEffect, useRef, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
-import {
-    getMessages,
-    getNotebook,
-    getNotebookStatus,
-    getUsage,
-    sendMessageStream,
-    uploadDocument
-} from "../apis/notebookApi.js";
+import { getUsage } from "../apis/notebookApi.js";
 
-import {
-    BookOpen,
-    AlertTriangle,
-    RefreshCw,
-} from "lucide-react";
+import { BookOpen, AlertTriangle, RefreshCw } from "lucide-react";
 
-import toast from "react-hot-toast";
 
-import UploadPrompt from "../components/notebooks/UploadPrompt.jsx";
+import UploadPrompt from "../components/notebooks/UploadPrompt.jsx"; 
 import NotebookSidebar from "../components/notebooks/NotebookSidebar.jsx";
 import { Button } from "@mui/material";
 import LimitReachedModal from "../components/common/LimitReachedModal.jsx";
@@ -48,11 +22,12 @@ import { useDocumentStatusPolling } from "../hooks/useDocumentStatusPolling.js";
 import { useChatMessages } from "../hooks/useChatMessages.js";
 import { useDocumentUpload } from "../hooks/useDocumentUpload.js";
 
+
 const NotebookViewPage = () => {
 
-    const { notebook_id } = useParams(); 
-    const [mobileTab, setMobileTab] = useState("chat"); // "chat" | "sources"
-    const inputRef = useRef(null); 
+    const { notebook_id } = useParams();
+    const [mobileTab, setMobileTab] = useState("chat");
+    const inputRef = useRef(null);
 
     const sidebarRef = useRef(null);
 
@@ -86,7 +61,7 @@ const NotebookViewPage = () => {
 
     const { pageLoading, doc, setDoc, documentUrl, setDocumentUrl, title, setTitle } = useNotebookData(notebook_id);
 
-    useDocumentStatusPolling(notebook_id, doc, setDoc, setDocumentUrl);  
+    useDocumentStatusPolling(notebook_id, doc, setDoc, setDocumentUrl);
 
 
     const isDocReady = doc?.status === "ready";
@@ -96,17 +71,15 @@ const NotebookViewPage = () => {
     const documentsExhausted = !!usage && usage.documents.used >= usage.documents.total;
     const questionsExhausted = !!usage && usage.questions.used >= usage.questions.total;
 
-    const { pendingFile, setPendingFile, isUploading, uploadProgress, limitModal, setLimitModal, handleUpload, handleRetryUpload } = useDocumentUpload(notebook_id, setDoc, setDocumentUrl, documentsExhausted, setUsage);
+    const { pendingFile, setPendingFile, isUploading, uploadProgress, limitModal, setLimitModal, handleUpload, handleRetryUpload } = useDocumentUpload(notebook_id, setDoc, setDocumentUrl, documentsExhausted, usage, setUsage);
 
-    const { messages,setMessages, input, setInput, isTyping, isChatLoading, pendingTextRef, handleSend, handleExplain } = useChatMessages(notebook_id, isDocReady, doc?.status, questionsExhausted, setUsage, setLimitModal);
+    const { messages, setMessages, input, setInput, isTyping, isChatLoading, pendingTextRef, handleSend, handleExplain } = useChatMessages(notebook_id, isDocReady, doc?.status, questionsExhausted, usage, setUsage, setLimitModal);
 
-    const { chatBoxRef, showScrollButton, scrollToBottom, handleChatScroll } = useAutoScroll(messages, isChatLoading);  
+    const { chatBoxRef, showScrollButton, scrollToBottom, handleChatScroll } = useAutoScroll(messages, isChatLoading);
 
 
 
     const handleSuggestionClick = (q) => {
-        // setInput(q);
-        // setTimeout(() => inputRef.current?.focus(), 50);
         setTimeout(() => handleExplain(q), 50);
     };
 
@@ -157,7 +130,7 @@ const NotebookViewPage = () => {
                                 uploading={isUploading}
                                 progress={uploadProgress}
                                 handleUpload={handleUpload}
-                                documentsExhausted={documentsExhausted} 
+                                documentsExhausted={documentsExhausted}
                                 documentsRemaining={usage ? usage.documents.total - usage.documents.used : null}
                             />
 
@@ -213,15 +186,15 @@ const NotebookViewPage = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                        : ( 
+                                        : (
 
                                             <>
 
                                                 <ChatMessageList
                                                     notebook_id={notebook_id}
                                                     onClearMessages={() => setMessages([])}
-                                                    messages={messages} 
-                                                    doc={doc} 
+                                                    messages={messages}
+                                                    doc={doc}
                                                     onSuggestionClick={handleSuggestionClick}
                                                     onExplain={handleExplain}
                                                     onCitationClick={handleCitationClick}

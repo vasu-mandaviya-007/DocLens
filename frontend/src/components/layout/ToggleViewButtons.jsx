@@ -5,7 +5,7 @@ import ReorderIcon from '@mui/icons-material/Reorder';
 
 import Paper from '@mui/material/Paper';
 import ToggleButton from '@mui/material/ToggleButton';
-import ToggleButtonGroup, { 
+import ToggleButtonGroup, {
     toggleButtonGroupClasses,
 } from '@mui/material/ToggleButtonGroup';
 
@@ -33,6 +33,7 @@ export default function ToggleViewButtons({ view, onChange }) {
 
     const handleViewChange = (event, newAlignment) => {
         onChange(newAlignment);
+        localStorage.setItem("doc-lens-notebook-view", newAlignment);
     };
 
     return (
@@ -53,11 +54,11 @@ export default function ToggleViewButtons({ view, onChange }) {
                     onChange={handleViewChange}
                     aria-label="text alignment"
                 >
-                    <ToggleButton sx={{fontSize : "15px"}} value={"grid"} >
+                    <ToggleButton sx={{ fontSize: "15px" }} value={"grid"} >
                         <AutoAwesomeMosaicIcon fontSize='inherit' />
                     </ToggleButton>
-                    <ToggleButton sx={{fontSize : "15px"}} value={"list"} >
-                        <ReorderIcon fontSize='inherit' /> 
+                    <ToggleButton sx={{ fontSize: "15px" }} value={"list"} >
+                        <ReorderIcon fontSize='inherit' />
                     </ToggleButton>
                 </StyledToggleButtonGroup>
 
@@ -66,5 +67,5 @@ export default function ToggleViewButtons({ view, onChange }) {
             </Paper>
         </div>
     );
-    
+
 }
