@@ -97,7 +97,7 @@ class Settings(BaseSettings):
 
     # ── Environment / cookies / CORS ────────────────────────────────────
     ENV: str = "development"  # "development" | "production"
-    FRONTEND_URL: str = "http://localhost:5173"
+    FRONTEND_URL: str
 
     # Stored as plain str (not list[str]) on purpose: pydantic-settings tries
     # to JSON-decode any list-typed field read from an env var, so a plain
@@ -151,6 +151,10 @@ class Settings(BaseSettings):
     CLOUDINARY_API_SECRET: str
 
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
+
+    BREVO_API_KEY : str 
+    SENDER_EMAIL: str
+    SENDER_NAME: str = "Doc Lens"
 
 
 settings = Settings()

@@ -1,23 +1,5 @@
-from fastapi_mail import FastMail, MessageSchema, ConnectionConfig, MessageType
 
-from app.core.config import settings
-
-conf = ConnectionConfig(
-    MAIL_USERNAME=settings.EMAIL_USER, 
-    MAIL_PASSWORD=settings.EMAIL_PASS,
-    MAIL_FROM=settings.EMAIL_USER,
-    MAIL_FROM_NAME="DocLens",
-    MAIL_PORT=587,
-    MAIL_SERVER="smtp.gmail.com",
-    MAIL_STARTTLS=True, 
-    MAIL_SSL_TLS=False,
-    USE_CREDENTIALS=True,
-    VALIDATE_CERTS=True,
-)
-
-# FastMail instance ek hi jagah banate hain (singleton) — har request pe naya
-# object banane ki zarurat nahi, connection config reuse hoga
-fm = FastMail(conf)
+from app.services.account.send_mail import send_mail
 
 
 def _build_otp_email(username: str, otp: str, expires_minutes: int, heading: str, subheading: str) -> str:
@@ -71,15 +53,6 @@ def _build_otp_email(username: str, otp: str, expires_minutes: int, heading: str
     """
 
 
-async def _send_email(subject: str, recipient: str, html_body: str) -> None:
-    message = MessageSchema(
-        subject=subject,
-        recipients=[recipient],
-        body=html_body,
-        subtype=MessageType.html,
-    )
-    await fm.send_message(message)
-
 
 async def send_verification_otp_email(email: str, username: str, otp: str, expires_minutes: int) -> None:
     html = _build_otp_email(
@@ -87,9 +60,9 @@ async def send_verification_otp_email(email: str, username: str, otp: str, expir
         otp=otp,
         expires_minutes=expires_minutes,
         heading="Verify your email",
-        subheading="use the code below to verify your DocLens account.",
+        subheading="use the code below to verify your DocLens account.", 
     )
-    await _send_email(subject="Verify your DocLens account", recipient=email, html_body=html)
+    await send_mail(subject="Verify your DocLens account", recipient=email, html_body=html)
 
 
 async def send_password_reset_otp_email(email: str, username: str, otp: str, expires_minutes: int) -> None:
@@ -100,4 +73,7 @@ async def send_password_reset_otp_email(email: str, username: str, otp: str, exp
         heading="Reset your password",
         subheading="use the code below to reset your DocLens password.",
     )
-    await _send_email(subject="Reset your DocLens password", recipient=email, html_body=html)
+    await send_mail(subject="Reset your DocLens password", recipient=email, html_body=html)
+
+
+    
