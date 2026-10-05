@@ -102,6 +102,14 @@ async def signup(data: SignUpRequest, response: Response):
     )
 
 
+
+
+
+
+
+
+
+
 # @router.post("/register")
 # async def register_user(user: SignUpRequest):
 #     # Pydantic (SignUpRequest) automatically validates format.
