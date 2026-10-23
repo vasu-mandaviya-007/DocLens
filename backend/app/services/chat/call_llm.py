@@ -5,9 +5,7 @@ OLLAMA_CHAT_MODEL = "gemma2:2b"
 GROQ_CHAT_MODEL = "openai/gpt-oss-120b"  
 
 async def call_llm(messages): 
-    """
-    LLM se stream fetch karta hai aur raw text chunks yield karta hai.
-    """
+    
     
     stream = await groq_async_client.chat.completions.create(
         model=GROQ_CHAT_MODEL,

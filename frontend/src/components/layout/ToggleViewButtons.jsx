@@ -14,7 +14,6 @@ const StyledToggleButtonGroup = styled(ToggleButtonGroup)(({ theme }) => ({
         margin: theme.spacing(0.5),
         border: 0,
         color: theme.palette.mode === "light" ? "#222 !important" : "var(--color-content-default)",
-        // borderRadius: theme.shape.borderRadius,
 
         borderRadius: "9999px",
         [`&.${toggleButtonGroupClasses.disabled}`]: {
@@ -23,7 +22,6 @@ const StyledToggleButtonGroup = styled(ToggleButtonGroup)(({ theme }) => ({
     },
     [`& .${toggleButtonGroupClasses.middleButton},& .${toggleButtonGroupClasses.lastButton}`]:
     {
-        // marginLeft: -1,
         marginLeft: 0.5,
         borderLeft: '1px solid transparent',
     },
@@ -61,9 +59,6 @@ export default function ToggleViewButtons({ view, onChange }) {
                         <ReorderIcon fontSize='inherit' />
                     </ToggleButton>
                 </StyledToggleButtonGroup>
-
-                {/* <Divider flexItem orientation="vertical" sx={{ mx: 0.5, my: 1 }} /> */}
-
             </Paper>
         </div>
     );

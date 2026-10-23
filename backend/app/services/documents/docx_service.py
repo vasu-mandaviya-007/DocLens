@@ -1,18 +1,13 @@
 import io
 import logging
 
-import docx  # hard dependency: DOCX is a core supported file type (see SUPPORTED_FILE_LABEL),
-             # so a missing package should fail at import time / requirements install,
-             # not silently disable a feature at runtime.
+import docx
 
 from app.services.documents.document_extractor import InvalidDocumentError 
 
 logger = logging.getLogger(__name__) 
 
-# Chunk size for pseudo-pagination — NOT a real Word page boundary.
-# Kept as "page" in the returned dict shape for compatibility with the PDF
-# extractor's output, but callers/UI should treat this as an approximate
-# chunk index, not a literal page number.
+
 DOCX_WORDS_PER_PAGE = 400 
 
 MAX_DOCX_UNPACKED_BYTES = 100 * 1024 * 1024

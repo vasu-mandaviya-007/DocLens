@@ -12,7 +12,6 @@ export function useAutoScroll(messages, isChatLoading) {
 
     useEffect(() => {
         scrollToBottom();
-        // eslint-disable-next-line react-hooks/exhaustive-deps 
     }, [messages, isChatLoading]);
 
     const handleChatScroll = () => {

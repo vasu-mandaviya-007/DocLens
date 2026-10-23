@@ -35,10 +35,6 @@ async def list_notebooks(current_user: User = Depends(get_current_user)):
 
     result = []
     for nb in notebooks:
-        # NOTE: ye ek query-per-notebook hai (N+1 pattern) — abhi ke scale
-        # (ek user ki chand notebooks) ke liye theek hai, but agar kabhi
-        # sainkड़on notebooks ho jayein, isko ek single aggregation query
-        # mein batch karna better hoga.
         document = await DocumentFile.find_one(DocumentFile.notebook_id == nb.id)
 
         result.append(

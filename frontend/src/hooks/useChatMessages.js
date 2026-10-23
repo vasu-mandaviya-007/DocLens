@@ -15,8 +15,6 @@ export function useChatMessages(notebookId, isDocReady, docStatus, questionsExha
 
     const makeMsgId = () => `msg-${Date.now()}-${nextMsgIdRef.current++}`;
 
-
-    // Chat history load — sirf ek baar jab document "ready" ho
     useEffect(() => {
         if (docStatus !== "ready") return;
 
@@ -49,7 +47,6 @@ export function useChatMessages(notebookId, isDocReady, docStatus, questionsExha
     }, [notebookId, docStatus]);
 
 
-    // Pending stream-flush timer ko unmount pe cleanup karo
     useEffect(() => {
         return () => {
             if (flushTimeoutRef.current) clearTimeout(flushTimeoutRef.current);
@@ -116,13 +113,7 @@ export function useChatMessages(notebookId, isDocReady, docStatus, questionsExha
 
         try {
             await sendMessageStream(notebookId, questionText, {
-                // onCitations: (citations) => {
-                //     setMessages((prev) => {
-                //         const updated = [...prev];
-                //         updated[updated.length - 1] = { ...updated[updated.length - 1], citations };
-                //         return updated;
-                //     });
-                // },
+                
                 onCitations: (sources) => {
                     setMessages((prev) => {
                         const updated = [...prev];
@@ -151,29 +142,7 @@ export function useChatMessages(notebookId, isDocReady, docStatus, questionsExha
                         return updated;
                     });
                 },
-                // onDone: () => {
-                //     if (flushTimeoutRef.current) {
-                //         clearTimeout(flushTimeoutRef.current);
-                //         flushTimeoutRef.current = null;
-                //     }
-                //     if (pendingTextRef.current) {
-                //         const chunk = pendingTextRef.current;
-                //         pendingTextRef.current = "";
-                //         setMessages((prev) => {
-                //             const updated = [...prev];
-                //             const last = updated[updated.length - 1];
-                //             updated[updated.length - 1] = { ...last, text: last.text + chunk };
-                //             return updated;
-                //         });
-                //     }
-                //     setIsTyping(false);
-
-                //     setUsage((prev) => prev && {
-                //         ...prev,
-                //         questions: { ...prev.questions, used: prev.questions.used + 1 },
-                //     });
-
-                // },
+                
                 onDone: (data) => {
                     if (flushTimeoutRef.current) {
                         clearTimeout(flushTimeoutRef.current);
@@ -186,9 +155,9 @@ export function useChatMessages(notebookId, isDocReady, docStatus, questionsExha
                         const last = updated[updated.length - 1];
                         updated[updated.length - 1] = {
                             ...last,
-                            text: data.answer,          // normalized [1][3] wala final text
-                            citations: data.citations,  // sirf use hue sources
-                            sources: undefined,         // early list ab nahi chahiye
+                            text: data.answer,          
+                            citations: data.citations,
+                            sources: undefined,        
                         };
                         return updated;
                     });

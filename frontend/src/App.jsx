@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react'
-import DocumentQA from './pages/DocumentQA.jsx'
 import Home from './pages/Home.jsx';
 import { BrowserRouter, Routes, Route } from "react-router-dom"
-import LoginPage from './pages/LoginPage.jsx';
 import Login from './pages/Login.jsx';
 import Register from './pages/Register.jsx';
 import ForgotPassword from './pages/ForgotPassword.jsx';

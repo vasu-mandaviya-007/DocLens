@@ -1,9 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
-// Selection toolbar ki logic. Document-level listeners sirf tab lagte hain jab toolbar visible ho,
-// isliye 50 messages = 100 listeners wali problem nahi rehti.
+
 export function useTextSelection() {
-    const [selection, setSelection] = useState(null); // { text, x, y } | null
+    const [selection, setSelection] = useState(null);
     const toolbarRef = useRef(null);
     const visible = selection !== null; 
 
@@ -12,7 +11,7 @@ export function useTextSelection() {
         window.getSelection()?.removeAllRanges();
     }, []);
 
-    // pointerup mouse + touch dono pe fire hota hai (mouseup sirf mouse pe)
+
     const onPointerUp = useCallback(() => {
         setTimeout(() => {
             const sel = window.getSelection();
@@ -25,6 +24,7 @@ export function useTextSelection() {
             setSelection({ text, x: rect.left + rect.width / 2, y: rect.top - 12 });
         }, 10);
     }, []);
+
 
     useEffect(() => {
         if (!visible) return;
@@ -40,5 +40,7 @@ export function useTextSelection() {
         };
     }, [visible]);
 
+
     return { selection, toolbarRef, onPointerUp, clear };
+    
 }

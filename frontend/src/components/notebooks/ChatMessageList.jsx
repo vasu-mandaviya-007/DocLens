@@ -1,9 +1,8 @@
 import { Sparkles, ArrowDown, EllipsisVertical } from "lucide-react";
 import { Fab, IconButton } from "@mui/material";
-import ChatEmptyState from "./ChatEmptyState.jsx";
 import ChatBubble from "./ChatBubble.jsx";
 import DropdownMenu from "../common/DropdownMenu.jsx";
-import { deleteIcon, editIcon, pinIcon } from "../common/Icons.jsx";
+import { deleteIcon } from "../common/Icons.jsx";
 import DocumentSummary from "./DocumentSummary.jsx";
 import { deleteChat } from "../../apis/notebookApi.js";
 import ConfirmDialog from "../common/ConfirmModal.jsx";
@@ -36,7 +35,7 @@ export default function ChatMessageList({
             label: "Delete Chat History",
             type: "danger",
             icon: deleteIcon,
-            onClick: () => setShowDeleteDialog(true) // Click karne par dialog open hoga
+            onClick: () => setShowDeleteDialog(true)
         },
     ];
 
@@ -52,12 +51,11 @@ export default function ChatMessageList({
             await deleteChat(notebook_id);
             toast.success("Chat history cleared");
 
-            // Backend se delete hone ke baad UI se bhi clear kar do
             if (onClearMessages) {
                 onClearMessages();
             }
 
-            setShowDeleteDialog(false); // Modal close karo
+            setShowDeleteDialog(false);
 
 
         } catch (err) {
@@ -74,7 +72,6 @@ export default function ChatMessageList({
 
         <div className="relative flex-1 overflow-hidden">
 
-            {/* Delete Confirmation Modal */}
             <ConfirmDialog
                 open={showDeleteDialog}
                 title="Clear Chat History?"
@@ -107,29 +104,7 @@ export default function ChatMessageList({
                 }
 
                 <div className="max-w-250 mx-auto px-4 sm:px-6 py-6 space-y-4">
-
-                    {/* {messages.length === 0 ? (
-                        <ChatEmptyState doc={doc} onSuggestionClick={onSuggestionClick} />
-                    ) : (
-
-                        messages.map((m, i) => (
-                            <ChatBubble
-                                key={m.id}
-                                index={i}
-                                message={m}
-                                onSuggestionClick={onSuggestionClick}
-                                onExplain={onExplain}
-                                onCitationClick={onCitationClick}
-                            />
-                        ))
-
-                    )} */}
-
-                    {/* <ChatEmptyState
-                        doc={doc}
-                        onSuggestionClick={onSuggestionClick}
-                        showSuggestions={messages.length === 0}
-                    /> */}
+                    
                     <DocumentSummary
                         doc={doc}
                         onSuggestionClick={onSuggestionClick}

@@ -1,5 +1,3 @@
-"""app/services/account/oauth_service.py — Google aur GitHub ka common logic ek jagah."""
-
 from fastapi.responses import RedirectResponse
 
 from app.core.config import settings
@@ -22,7 +20,7 @@ async def get_or_create_oauth_user(
             username=name,
             email=email,
             avatar=avatar,
-            is_verified=True,  # provider ne email verify kar rakha hai
+            is_verified=True,  
             linked_providers=[link],
         )
         await user.insert()
@@ -31,9 +29,6 @@ async def get_or_create_oauth_user(
     if any(p.provider == provider for p in user.linked_providers):
         return user
 
-    # Pehle se bana account: provider link karo.
-    # Agar wo account kabhi verify nahi hua tha, to signup karne wale ne hi (shayad kisi aur ne)
-    # password set kiya ho sakta hai. Password hata do, warna wo is email ke account me ghus sakta hai.
     if not user.is_verified:
         user.password = None
 
@@ -52,7 +47,7 @@ async def complete_oauth_login(
         provider=provider, provider_id=provider_id, email=email, name=name, avatar=avatar
     )
 
-    if not user.is_active:  # normal login me ye check hai, OAuth me bhi hona chahiye
+    if not user.is_active:
         return error_redirect("account_deactivated")
 
     response = RedirectResponse(url=settings.FRONTEND_URL)

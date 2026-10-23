@@ -154,8 +154,8 @@ export default function DropdownMenu({
     align = "left",
     width = 220,
     closeOnSelect = true,
-    triggerOn = "click", // "click" | "hold"
-    holdDelay = 500,     // Hold time in ms
+    triggerOn = "click",
+    holdDelay = 500, 
 }) {
     const triggerRef = useRef(null);
     const menuRef = useRef(null);
@@ -204,7 +204,6 @@ export default function DropdownMenu({
 
     const handleHoldStart = useCallback(
         (e) => {
-            // Sirf primary click ya touch allow karein
             if (e.pointerType === "mouse" && e.button !== 0) return;
 
             startCoordRef.current = { x: e.clientX, y: e.clientY };
@@ -213,7 +212,6 @@ export default function DropdownMenu({
             holdTimerRef.current = setTimeout(() => {
                 calculatePosition();
                 setOpen(true);
-                // Mobile par halka haptic vibration (optional)
                 if (navigator.vibrate) navigator.vibrate(40);
             }, holdDelay);
         },
@@ -226,7 +224,6 @@ export default function DropdownMenu({
             const dx = Math.abs(e.clientX - startCoordRef.current.x);
             const dy = Math.abs(e.clientY - startCoordRef.current.y);
 
-            // Agar user scroll kar raha hai (10px se zyada move), to hold cancel kar do
             if (dx > 10 || dy > 10) {
                 handleHoldCancel();
             }
@@ -258,7 +255,6 @@ export default function DropdownMenu({
             if (e.key === "Escape") setOpen(false);
         }
 
-        // pointerdown mobile touch aur mouse dono par kaam karta hai
         document.addEventListener("pointerdown", handleClickOutside);
         document.addEventListener("keydown", handleEscape);
         window.addEventListener("scroll", handleReposition, true);

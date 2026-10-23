@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { X, Upload } from "lucide-react";
+import { X } from "lucide-react";
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, TextField } from "@mui/material";
 import FileUploadBox from "./FileUploadBox.jsx";
 import { dialogSx, GrowTransition } from "../../utils/dialogSx.jsx";
@@ -95,7 +95,6 @@ export default function NewNotebookModal({ open, onClose, onCreate }) {
                     form="notebook-create-form"
                     variant="contained"
                     color="primary"
-                    // onClick={handleCreate}
                     sx={{
                         borderRadius: "9999px",
                     }}
@@ -107,7 +106,5 @@ export default function NewNotebookModal({ open, onClose, onCreate }) {
 
         </Dialog>
 
-
-        // </div>
     );
 }

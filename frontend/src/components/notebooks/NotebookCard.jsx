@@ -31,13 +31,16 @@ const CARD_BG_COLORS = [
 
 export const LIST_COLS = "grid-cols-[minmax(0,1fr)_40px] md:grid-cols-[minmax(0,1fr)_120px_140px_40px]";
 
+
 export function getSpineColor(colorIndex) {
     return SPINE_COLORS[colorIndex % SPINE_COLORS.length];
 }
 
+
 export function getBgColor(colorIndex) {
     return CARD_BG_COLORS[colorIndex % CARD_BG_COLORS.length];
 }
+
 
 export function NotebookListRow({ notebook, isLast }) {
 
@@ -52,11 +55,13 @@ export function NotebookListRow({ notebook, isLast }) {
     ];
 
     return (
+
         <div
             onClick={() => navigate(`/notebook/${notebook.id}`)}
             className={`grid grid-cols-[1fr_120px_140px_40px] items-center px-5 py-4 cursor-pointer transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-800 ${!isLast ? "border-b border-zinc-200 dark:border-zinc-800" : ""
                 }`}
         >
+
             <div className="flex items-center gap-3 min-w-0">
                 <span className={`w-1.5 h-6 rounded-full shrink-0 ${getSpineColor(notebook.color)}`} />
                 <span className="text-sm font-medium truncate text-zinc-900 dark:text-zinc-100">
@@ -68,15 +73,11 @@ export function NotebookListRow({ notebook, isLast }) {
 
             <span className="text-sm text-zinc-500 dark:text-zinc-400">{notebook.date}</span>
 
-            {/* <ChevronRight className="w-4 h-4 text-zinc-400 dark:text-zinc-500" /> */}
             <DropdownMenu
                 align="left"
                 width={220}
                 items={menuItems}
                 trigger={(toggleProps) => (
-                    // <button {...toggleProps} className="rounded-full p-2 hover:bg-gray-200 dark:hover:bg-zinc-800">
-                    //     <EllipsisVertical className="size-4" />
-                    // </button>
                     <IconButton {...toggleProps} className="aspect-square!" >
                         <EllipsisVertical className="size-4" />
                     </IconButton>
@@ -117,10 +118,12 @@ export function NotebookGridCard({ notebook, onEdit, onPin, onDelete }) {
     }, []);
 
     return (
+
         <div
             onClick={() => navigate(`/notebook/${notebook.id}`)}
             className={`rounded-xl ${getBgColor(notebook.color)} animate-fade-in-down border border-zinc-200 dark:border-zinc-800 dark:bg-zinc-900 px-4 py-6 flex items-start gap-3 cursor-pointer transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-800 h-full`}
         >
+            
             <div className="flex flex-col w-full h-full">
 
                 <div className="flex justify-between items-start w-full ">
@@ -146,9 +149,6 @@ export function NotebookGridCard({ notebook, onEdit, onPin, onDelete }) {
                             width={220}
                             items={menuItems}
                             trigger={(toggleProps) => (
-                                // <button {...toggleProps} className="rounded-full p-2 hover:bg-gray-200 dark:hover:bg-zinc-800">
-                                //     <EllipsisVertical className="size-4" />
-                                // </button>
                                 <IconButton {...toggleProps} >
                                     <EllipsisVertical className="size-4" />
                                 </IconButton>
@@ -166,7 +166,11 @@ export function NotebookGridCard({ notebook, onEdit, onPin, onDelete }) {
                         {notebook.pages} pages &middot; {notebook.date}
                     </p>
                 </div>
+
             </div>
+
         </div>
+
     );
+
 }

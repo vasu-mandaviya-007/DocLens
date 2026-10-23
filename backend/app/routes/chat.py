@@ -45,7 +45,6 @@ async def get_messages(
                 "id": str(m.id), 
                 "role": m.role,
                 "text": m.text,
-                # "citations": [c.dict() for c in m.citations] if m.citations else [],
                 "citations": [
                     {**c.dict(), "plain": strip_markdown(c.snippet)}
                     for c in m.citations

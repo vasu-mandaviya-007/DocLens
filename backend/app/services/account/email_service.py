@@ -3,12 +3,7 @@ from app.services.account.send_mail import send_mail
 
 
 def _build_otp_email(username: str, otp: str, expires_minutes: int, heading: str, subheading: str) -> str:
-    """
-    Common OTP email template — dono verification aur password reset ke liye reuse hota hai.
-    Table-based layout use kiya hai kyunki Gmail/Outlook jaise email clients
-    external CSS aur flexbox/grid ko properly support nahi karte — inline styles + tables
-    hi sabse reliable render hote hain across clients.
-    """
+    
     return f"""
     <!DOCTYPE html>
     <html>

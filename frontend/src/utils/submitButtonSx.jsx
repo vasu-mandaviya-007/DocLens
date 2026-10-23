@@ -1,5 +1,4 @@
 
-
 export const submitButtonSx = { 
 
     backgroundColor: 'var(--clerk-color-primary)',
@@ -17,7 +16,6 @@ export const submitButtonSx = {
         0px 1px 1px 0px rgba(0, 0, 0, 0.24)`, 
     borderRadius: '10px', 
     paddingY: '8px',  
-    // marginTop: '30px', 
     fontWeight: 600,
     textTransform: 'none',
     fontSize: '0.8rem',

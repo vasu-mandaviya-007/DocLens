@@ -13,7 +13,6 @@ export default function SearchPanel({ documentId, onClose }) {
         inputRef.current?.focus();
         search?.startSearch();
         return () => search?.stopSearch();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [search]);
 
     useEffect(() => {

@@ -1,7 +1,7 @@
 from app.services.documents.document_extractor import InvalidDocumentError
 import codecs
 
-# Chunk size for pseudo-pagination — not a real page boundary, see note in docx_service.py.
+
 TXT_LINES_PER_PAGE = 50
 BINARY_SNIFF_BYTES = 8192
 
@@ -51,9 +51,5 @@ def extract_pages_from_txt_bytes(file_bytes: bytes) -> list[dict]:
         if not text.strip() : 
             continue
         pages.append({"page": len(pages) + 1, "text": text, "start_line": start + 1, "end_line": end})
-
-    # for i in range(0, len(lines), TXT_LINES_PER_PAGE):
-        # chunk = "\n".join(lines[i : i + TXT_LINES_PER_PAGE])
-        # pages.append({"page": i // TXT_LINES_PER_PAGE + 1, "text": chunk})
 
     return pages

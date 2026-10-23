@@ -6,13 +6,14 @@ import { Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { renameNotebook } from '../../apis/notebookApi.js';
 
+
 const NotebookHeader = ({ title, setTitle, notebook_id }) => { 
 
     const titleInputRef = useRef(null);
     const [isEditingTitle, setIsEditingTitle] = useState(false); 
     const [titleDraft, setTitleDraft] = useState("");
     
-    // ── Title editing ────────────────────────────────────────────────
+
     useEffect(() => {
         if (isEditingTitle && titleInputRef.current) {
             titleInputRef.current.focus();

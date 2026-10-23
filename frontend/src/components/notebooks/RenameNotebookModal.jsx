@@ -9,7 +9,6 @@ export const RenameNotebookModal = ({ open, onClose, notebook, onSave }) => {
     const [saving, setSaving] = useState(false);
     const [error, setError] = useState("");
 
-    // Jab bhi naya notebook edit ke liye khule, input ko uske current title se pre-fill karo
     useEffect(() => {
         setTitle(notebook?.title || "");
         setError("");
@@ -21,8 +20,6 @@ export const RenameNotebookModal = ({ open, onClose, notebook, onSave }) => {
     const handleSave = async (e) => {
         e.preventDefault();
 
-        // Already ek save chal raha hai toh dusra submit ignore karo —
-        // isse double-click / double Enter se do requests nahi jaayengi
         if (saving) return;
 
         const trimmed = title.trim();
@@ -38,8 +35,6 @@ export const RenameNotebookModal = ({ open, onClose, notebook, onSave }) => {
         }
     };
 
-    // Saving ke dauraan backdrop click / Escape se dialog band nahi hone dena —
-    // warna beech mein hi modal gayab ho jaayega jabki request abhi pending hai
     const handleClose = (...args) => {
         if (saving) return;
         onClose(...args);

@@ -115,7 +115,7 @@ const ToastCard = ({ t, message, activeConfig, showProgress }) => {
             </div>
         </div>
     );
-};
+}; 
 
 
 /**

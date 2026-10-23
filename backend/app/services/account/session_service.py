@@ -1,5 +1,3 @@
-"""app/services/account/session_service.py"""
-
 from fastapi import Response
 
 from app.core.security import (
@@ -13,8 +11,6 @@ from app.utils.cookie_utils import set_auth_cookies
 
 
 async def start_session(response: Response, user: User) -> None:
-    """Access + refresh token banata hai, refresh token DB me save karta hai, cookies set karta hai.
-    Email login, verify-email, refresh aur OAuth sab yahi use karte hain."""
     raw_refresh = generate_refresh_token()
     await RefreshToken(
         user_id=user.id,

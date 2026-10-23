@@ -8,7 +8,7 @@ export function useUsageQuery() {
         queryKey: usageQueryKey,
         queryFn: async () => {
             const res = await getUsage(); 
-            return res.data; // auth.py routes unwrapped hain — { documents:{used,total}, questions:{used,total} }
+            return res.data;
         },
         staleTime: 30_000,
     });
@@ -17,7 +17,7 @@ export function useUsageQuery() {
 export function useUpdateProfile() {
     const queryClient = useQueryClient();
     return useMutation({
-        mutationFn: (payload) => updateProfile(payload), // { username }
+        mutationFn: (payload) => updateProfile(payload),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: usageQueryKey });
         },

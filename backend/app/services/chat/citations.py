@@ -1,9 +1,3 @@
-"""app/services/citations.py — citation format ka single source of truth (backend side).
-
-Format: [S1], [S1][S3]. Model kabhi [S1, S3] likhe to normalize ho jata hai.
-`[S\\d+]` normal text/code me almost kabhi nahi aata, isliye arr[1] ya
-bibliography ke [1] se collision nahi hota.
-"""
 
 import re
 
@@ -18,14 +12,12 @@ SOURCE_LINE_RE = re.compile(
 )
 
 def normalize_citations(text: str) -> str:
-    """[S1, S3] -> [S1][S3]"""
     return CITATION_RE.sub(
         lambda m: "".join(f"[S{n}]" for n in _NUM_RE.findall(m.group(1))), text
     )
 
 
 def strip_citations(text: str) -> str:
-    """Chat history me purane answers ke markers hata do (wo purane turn ke sources ke the)."""
     return re.sub(r"[ \t]*" + CITATION_RE.pattern, "", text)
 
 
@@ -43,7 +35,6 @@ def extract_used_ids(text: str, valid_ids: set[int]) -> list[int]:
 
 
 def finalize_answer(text: str) -> str:
-    """Stream khatam hone ke baad ek hi jagah sab cleanup."""
     text = normalize_citations(text)
     text = _strip_in_code_blocks(text)
     text = SOURCE_LINE_RE.sub("", text)

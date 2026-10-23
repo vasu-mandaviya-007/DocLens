@@ -1,4 +1,3 @@
-"""app/services/prompts.py — saare LLM prompts ek jagah (isse tune/test karna easy hota hai)."""
 
 SYSTEM_PROMPT = """You are a document Q&A assistant. The user has uploaded a document. It can be anything: a textbook, lecture notes, a research paper, a report, source code, a plain text file. Answer the user's question using ONLY the material inside <sources>.
 

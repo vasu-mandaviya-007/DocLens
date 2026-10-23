@@ -1,4 +1,3 @@
-"""app/services/chat_service.py"""
 
 import asyncio
 import json
@@ -20,11 +19,10 @@ logger = logging.getLogger(__name__)
 GEMINI_CHAT_MODEL = "gemini-2.5-flash"
 TOP_K = 6
 MAX_CONTEXT_CHARS = 24000
-HISTORY_MESSAGES = 6  # last 3 Q/A pairs
-# Chroma distance. None = filter off. Pehle logs me distances dekho, phir tune karo (e.g. 0.8).
+HISTORY_MESSAGES = 6 
 MAX_DISTANCE: float | None = None
 
-_RESET = object()  # fallback ke time stream restart ka signal
+_RESET = object()  
 
 FALLBACK_EMPTY_NOTEBOOK = (
     "I don't have any content to search for this notebook yet. "
@@ -51,7 +49,6 @@ async def _collect(stream) -> str:
 
 
 def _recent_history(history: list[dict] | None) -> list[dict]:
-    """Sirf user/assistant turns, purane citation markers hata ke."""
     turns = [h for h in (history or []) if h.get("role") in ("user", "assistant") and h.get("content")]
     return [
         {"role": h["role"], "content": strip_citations(h["content"])}
@@ -59,24 +56,8 @@ def _recent_history(history: list[dict] | None) -> list[dict]:
     ]
 
 
-# ---------- retrieval ----------
-
-# def _format_location(meta: dict) -> str:
-#     """Citation chip ka label. PDF=page, code=lines, notes=section, warna chunk number."""
-#     if meta.get("page") is not None:
-#         return f"Page {meta['page']}"
-#     if meta.get("start_line") is not None:
-#         return f"Lines {meta['start_line']}–{meta.get('end_line', meta['start_line'])}"
-#     if meta.get("section"):
-#         return str(meta["section"])
-#     if meta.get("chunk_index") is not None:
-#         return f"Section {int(meta['chunk_index']) + 1}"
-#     return "Document"
-
 
 def _format_location(meta: dict) -> str:
-    """Citation chip ka label. Code/text=lines, PDF=page, notes=section, warna chunk number.
-    Lines pehle: txt chunks me page bhi hota hai par wo asli page nahi, bas chunk number hai."""
     if meta.get("start_line") is not None:
         return f"Lines {meta['start_line']}–{meta.get('end_line', meta['start_line'])}"
     if meta.get("page") is not None:
@@ -105,15 +86,14 @@ def _build_sources(results: dict) -> list[dict]:
             "id": i + 1,
             "page": meta.get("page"),
             "label": _format_location(meta),  
-            "snippet": text,                  # display ke liye (markdown intact)
-            "plain": strip_markdown(text),    # sirf PDF highlight search ke liye
+            "snippet": text,                  
+            "plain": strip_markdown(text),   
         }
         for i, (text, meta) in enumerate(kept)
     ]
 
 
 def _fit_sources(sources: list[dict], max_chars: int) -> list[dict]:
-    """Poore chunk drop karo, beech se kaat ke adhura chunk mat bhejo."""
     fitted, total = [], 0
     for s in sources:
         size = len(s["snippet"]) + 100
@@ -126,12 +106,11 @@ def _fit_sources(sources: list[dict], max_chars: int) -> list[dict]:
 
 
 def _format_source_block(s: dict) -> str:
-    safe = s["snippet"].replace("</source", "<\\/source")  # document se tag-injection roko
+    safe = s["snippet"].replace("</source", "<\\/source") 
     return f'<source id="S{s["id"]}" location="{s["label"]}">\n{safe}\n</source>'
 
 
 async def _rewrite_question(question: str, history: list[dict]) -> str:
-    """Follow-up ("isko explain karo") ko standalone question banao, taaki retrieval sahi chale."""
     if not history:
         return question
 
@@ -168,7 +147,6 @@ async def _gemini_stream(messages: list[dict]):
 
 
 async def _generate(messages: list[dict], notebook_id: str):
-    """Primary (Groq) -> fallback (Gemini). Text chunks yield karta hai, restart pe _RESET."""
     emitted = False
     try:
         async for chunk in call_llm(messages):
@@ -204,7 +182,7 @@ async def stream_answer(notebook_id: str, question: str, history: list[dict] | N
 
     sources = _fit_sources(_build_sources(results), MAX_CONTEXT_CHARS)
 
-    if not sources:  # sab chunks relevance threshold se bahar
+    if not sources: 
         yield _sse("citations", {"citations": []})
         yield _sse("token", {"content": FALLBACK_NO_MATCH})
         yield _sse("done", {"answer": FALLBACK_NO_MATCH, "citations": []})

@@ -31,13 +31,12 @@ const NotebookViewPage = () => {
 
     const sidebarRef = useRef(null);
 
-    // naya handler:
     const handleCitationClick = (citation) => {
         setMobileTab("sources")
         sidebarRef.current?.jumpToCitation(citation);
     };
 
-    const [usage, setUsage] = useState(null); // { documents: {used,total}, questions: {used,total} }
+    const [usage, setUsage] = useState(null); 
 
     // ── Fetch daily usage (documents + questions) ───────────────────
     useEffect(() => {
@@ -48,9 +47,6 @@ const NotebookViewPage = () => {
                 const res = await getUsage();
                 if (!cancelled) setUsage(res.data);
             } catch {
-                // Usage fetch fail ho to silently ignore — proactive UI bas
-                // nahi dikhegi, lekin core upload/chat flow unaffected rahega
-                // (reactive RATE_LIMIT_EXCEEDED handling abhi bhi kaam karegi).
             }
         })();
 

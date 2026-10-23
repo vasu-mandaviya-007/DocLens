@@ -26,10 +26,7 @@
 // const RING_RADIUS = (RING_SIZE - RING_STROKE) / 2;
 // const RING_CIRCUMFERENCE = 2 * Math.PI * RING_RADIUS;
 
-// /**
-//  * LimitReachedModal
-//  * props: open, onClose, limitType ("questions" | "documents"), used, total
-//  */
+
 // export default function LimitReachedModal({ open, onClose, limitType = "questions", used, total }) {
 //     const [rendered, setRendered] = useState(open);
 //     const [visible, setVisible] = useState(false);
@@ -90,8 +87,6 @@
 //                     <X className="size-4" />
 //                 </button>
 
-//                 {/* Hero: circular ring with the actual number inside it —
-//                     the content IS the visual, not a decorative icon standing in for it. */}
 //                 <div className="flex justify-center pt-1 pb-5">
 //                     <div className="relative" style={{ width: RING_SIZE, height: RING_SIZE }}>
 //                         <svg width={RING_SIZE} height={RING_SIZE} className="-rotate-90">
@@ -130,7 +125,6 @@
 //                     </div>
 //                 </div>
 
-//                 {/* Copy — calm, not alarmist */}
 //                 <div className="text-center mb-6">
 //                     <h2 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100 mb-1.5">
 //                         You're all set for today
@@ -140,7 +134,6 @@
 //                     </p>
 //                 </div>
 
-//                 {/* Primary action */}
 //                 <button
 //                     onClick={onClose}
 //                     className="w-full py-2.5 rounded-xl text-sm font-medium text-white bg-linear-to-br from-brand-primary to-brand-secondary shadow-md shadow-brand-primary/25 hover:shadow-lg hover:shadow-brand-primary/30 active:scale-[0.98] transition-all"
@@ -148,7 +141,6 @@
 //                     Got it
 //                 </button>
 
-//                 {/* Secondary — quiet text link, not a disabled button that looks broken */}
 //                 <p className="text-center text-xs text-zinc-400 dark:text-zinc-600 mt-4">
 //                     Higher limits with Pro — coming soon
 //                 </p>
@@ -156,18 +148,6 @@
 //         </div>
 //     );
 // }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -203,10 +183,7 @@ const RING_STROKE = 6;
 const RING_RADIUS = (RING_SIZE - RING_STROKE) / 2;
 const RING_CIRCUMFERENCE = 2 * Math.PI * RING_RADIUS;
 
-/**
- * LimitReachedModal
- * props: open, onClose, limitType ("questions" | "documents"), used, total
- */
+
 export default function LimitReachedModal({ open, onClose, limitType = "questions", used, total }) {
     const [rendered, setRendered] = useState(open);
     const [visible, setVisible] = useState(false);

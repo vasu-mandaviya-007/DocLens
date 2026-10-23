@@ -1,9 +1,6 @@
 import { Pencil } from "lucide-react";
 
-/**
- * Shared header for auth pages/steps — icon box + title + subtitle,
- * with an optional "edit email" back-link (used in OTP/verification steps).
- */
+
 const AuthHeader = ({ icon: Icon, title, subtitle, email, onEditEmail }) => {
 
     if (onEditEmail) { 

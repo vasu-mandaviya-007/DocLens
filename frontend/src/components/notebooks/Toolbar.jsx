@@ -35,38 +35,6 @@ const Toolbar = ({ query, onQueryChange, view, onViewChange, onNewNotebook, crea
                     />
                 </div>
 
-                {/* <div className="relative flex min-w-0 flex-1 items-center overflow-hidden rounded-full border border-zinc-200 bg-white transition-colors focus-within:border-primary/80 focus-within:ring-2 focus-within:ring-primary/30 sm:flex-none dark:border-zinc-700 dark:bg-surface-emphasized [&:hover:not(:focus-within)]:border-lines-outline-deemphasized">
-
-                    <Search className="pointer-events-none ml-3.5 h-4 w-4 shrink-0 text-zinc-400 dark:text-zinc-500" />
-
-                    <label htmlFor={searchId} className="sr-only">
-                        Search notebooks
-                    </label>
-
-                    <input
-                        id={searchId}
-                        type="text"
-                        inputMode="search"
-                        enterKeyHint="search"
-                        autoComplete="off"
-                        value={query}
-                        onChange={(e) => onQueryChange(e.target.value)}
-                        placeholder="Search notebooks"
-                        className="min-w-0 flex-1 bg-transparent py-2 pr-10 pl-2.5 text-sm text-zinc-900 outline-none placeholder:text-zinc-400 sm:w-52 sm:flex-none sm:text-sm lg:w-70 dark:text-zinc-100 dark:placeholder:text-zinc-600"
-                    />
-
-                    <button
-                        type="button"
-                        onClick={() => onQueryChange("")}
-                        aria-label="Clear search"
-                        tabIndex={query ? 0 : -1}
-                        className={`absolute right-1 flex h-9 w-9 items-center justify-center rounded-full text-content-deemphasized transition-opacity duration-200 hover:text-content-default ${query ? "opacity-100" : "pointer-events-none opacity-0"}`}
-                    >
-                        <X className="h-4 w-4" />
-                    </button>
-
-                </div> */}
-
                 <div className="shrink-0">
                     <ToggleViewButtons view={view} onChange={onViewChange} />
                 </div>

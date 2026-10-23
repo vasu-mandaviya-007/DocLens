@@ -25,7 +25,6 @@ def create_access_token(user_id: str) -> str:
 
 
 def create_refresh_token(user_id: str) -> tuple[str, datetime]: 
-    """Returns (token_string, expiry_datetime) — expiry DB mein bhi save karni hoti hai."""
     expire = datetime.now(timezone.utc) + timedelta(days=settings.REFRESH_TOKEN_EXPIRE_DAYS)
     payload = {"sub": user_id, "type": "refresh", "exp": expire}
     token = jwt.encode(payload, settings.JWT_SECRET_KEY, algorithm=settings.JWT_ALGORITHM)
@@ -39,10 +38,7 @@ def generate_refresh_token_data():
 
 
 def decode_access_token(token: str) -> dict: 
-    """
-    Raises JWTError if the token is invalid, expired, or tampered with.
-    Caller is responsible for catching JWTError and returning a 401.
-    """
+    
     payload = jwt.decode(token, settings.JWT_SECRET_KEY, algorithms=[settings.JWT_ALGORITHM])
     if payload.get("type") != "access":
         raise JWTError("Invalid token type")

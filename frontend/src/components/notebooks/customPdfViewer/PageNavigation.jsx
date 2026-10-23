@@ -18,7 +18,6 @@ export default function PageNavigation({ documentId }) {
         if (pageNumber >= 1 && pageNumber <= state.totalPages) {
             scroll.scrollToPage({ pageNumber });
         } else {
-            // Invalid input — reset back to current page instead of leaving a stale number
             setPageInput(String(state.currentPage));
         }
     };

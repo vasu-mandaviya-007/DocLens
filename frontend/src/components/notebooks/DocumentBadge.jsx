@@ -133,19 +133,21 @@
 
 
 import { Loader2 } from "lucide-react";
-import { pdfFileIcon, docsFileIcon, noteIcon } from "../../assets/assets.js";
+import { docsFileIcon, noteIcon } from "../../assets/assets.js";
+import pdfIcon from "../../assets/pdf2.svg";
 import { inferFileType } from "../../utils/fileType.js";
 
 const ICON_MAP = {
-    pdf: pdfFileIcon,
+    pdf: pdfIcon,
     docx: docsFileIcon,
     text: noteIcon,
 };
 
 export default function DocumentBadge({ doc, onClick }) {
+
     const isProcessing = doc?.status === "processing";
     const isReady = doc?.status === "ready";
-    const icon = ICON_MAP[inferFileType(doc?.filename)] ?? pdfFileIcon;
+    const icon = ICON_MAP[inferFileType(doc?.filename)] ?? pdfIcon;
 
     const handleKeyDown = (e) => {
         if (e.key === "Enter" || e.key === " ") {
@@ -155,24 +157,29 @@ export default function DocumentBadge({ doc, onClick }) {
     };
 
     return (
+
         <div
             onClick={onClick}
             role="button"
             tabIndex={0}
             onKeyDown={handleKeyDown}
-            className="group relative p-3 rounded-xl bg-surface-emphasized hover:bg-primary/8 transition-colors duration-200 cursor-pointer"
+            className="group relative p-3 rounded-xl border border-lines-divider/50 bg-surface-emphasized hover:bg-primary/8 dark:hover:bg-zinc-800 transition-colors duration-200 cursor-pointer"
         >
+
             <div className="flex items-start gap-3">
+
                 <div className="w-8 h-8 flex items-center justify-center shrink-0">
                     <img src={icon} alt="" className="w-full h-full object-contain" />
                 </div>
 
                 <div className="min-w-0 flex-1">
+
                     <p className="text-[13px] font-medium text-content-default truncate leading-tight">
                         {doc.filename}
                     </p>
 
                     <div className="flex items-center gap-1.5 mt-1">
+
                         {isProcessing && (
                             <>
                                 <Loader2 className="w-3 h-3 text-warning animate-spin shrink-0" />
@@ -189,11 +196,17 @@ export default function DocumentBadge({ doc, onClick }) {
                                 {doc.status}
                             </span>
                         )}
+
                     </div>
+
                 </div>
+
             </div>
+
         </div>
+
     );
+
 }
 
 
