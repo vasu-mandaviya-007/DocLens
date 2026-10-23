@@ -97,7 +97,7 @@ export default function ChatMessageList({
                             width={220}
                             items={menuItems}
                             trigger={(toggleProps) => (
-                                <IconButton {...toggleProps} className="absolute! top-3! right-4!" >
+                                <IconButton {...toggleProps} className="absolute! z-10 top-3! right-4!" >
                                     <EllipsisVertical className="size-4" />
                                 </IconButton>
                             )}
@@ -178,7 +178,7 @@ export default function ChatMessageList({
                     sx={{
                         position: "absolute",
                         bottom: 10,
-                        right: "50%",
+                        left: "50%",
                         translate: "-50% 0",
                         bgcolor: "var(--color-surface-emphasized)",
                         color: "var(--color-content-default)",

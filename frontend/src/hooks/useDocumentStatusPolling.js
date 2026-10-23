@@ -20,8 +20,7 @@ export function useDocumentStatusPolling(notebookId, doc, setDoc, setDocumentUrl
 
                 errorAttempts = 0;
                 const data = res.data.data;
-                console.log(data);
-                
+
                 setDoc((prev) => (prev ? { ...prev, ...data } : prev));
                 if (data.document_url) setDocumentUrl(data.document_url);
 
@@ -49,6 +48,6 @@ export function useDocumentStatusPolling(notebookId, doc, setDoc, setDocumentUrl
             cancelled = true;
             clearTimeout(timeoutId); 
         };
-    }, [notebookId, doc?.status, setDoc, setDocumentUrl]); 
+    }, [notebookId, doc?.status, doc, setDoc, setDocumentUrl]);
 
 }

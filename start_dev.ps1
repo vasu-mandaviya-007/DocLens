@@ -1,13 +1,33 @@
+# Write-Host "Starting Development Environment in Windows Terminal (Tabs)..." -ForegroundColor Green
+
+# # Yahan humne Activate.ps1 ke baad \; ka use kiya hai.
+# # Isse Windows Terminal confuse nahi hoga aur command properly PowerShell ko bhej dega.
+
+# $wtArgs = '-w 0 ' +
+#     'new-tab --title "Frontend" -d ".\frontend" powershell -NoExit -Command "npm run dev" ; ' +
+#     'new-tab --title "Django Server" -d ".\backend" powershell -NoExit -Command ".\.venv\Scripts\Activate.ps1 \; python run.py"'
+
+# # Start-Process se directly Windows Terminal ko call karenge
+# Start-Process wt.exe -ArgumentList $wtArgs
+
+# Write-Host "Launched Windows Terminal with 2 tabs successfully!" -ForegroundColor Green 
+
+
+
+
+
+
 Write-Host "Starting Development Environment in Windows Terminal (Tabs)..." -ForegroundColor Green
 
-# Yahan humne Activate.ps1 ke baad \; ka use kiya hai.
-# Isse Windows Terminal confuse nahi hoga aur command properly PowerShell ko bhej dega.
+# Agar PATH configured hai toh direct "pwsh" chal jayega.
+# Agar custom path use karna hai toh $pwsh = '"C:\Program Files\PowerShell\7\pwsh.exe"' use karein.
+$pwsh = "pwsh"
 
 $wtArgs = '-w 0 ' +
-    'new-tab --title "Frontend" -d ".\frontend" powershell -NoExit -Command "npm run dev" ; ' +
-    'new-tab --title "Django Server" -d ".\backend" powershell -NoExit -Command ".\.venv\Scripts\Activate.ps1 \; python run.py"'
+    "new-tab --title `"Frontend`" -d `".\frontend`" $pwsh -NoExit -Command `"npm run dev`" ; " +
+    "new-tab --title `"Django Server`" -d `".\backend`" $pwsh -NoExit -Command `".\.venv\Scripts\Activate.ps1 \; python run.py`""
 
-# Start-Process se directly Windows Terminal ko call karenge
+# Start-Process se Windows Terminal call karein
 Start-Process wt.exe -ArgumentList $wtArgs
 
-Write-Host "Launched Windows Terminal with 2 tabs successfully!" -ForegroundColor Green 
+Write-Host "Launched Windows Terminal with 2 tabs in PowerShell 7 successfully!" -ForegroundColor Green

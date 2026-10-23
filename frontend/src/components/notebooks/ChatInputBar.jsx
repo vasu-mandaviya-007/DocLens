@@ -77,6 +77,7 @@ export default function ChatInputBar({
             : "Waiting for the document to finish processing...";
 
     return (
+
         <div className="relative max-w-5xl mx-auto w-full shrink-0 px-4 sm:px-6 lg:px-20 pb-5 pt-3 bg-transparent">
             <div className="absolute w-full h-7 bg-linear-to-t from-white/90 dark:from-black/90 to-transparent right-0 bottom-full" />
 
@@ -121,5 +122,7 @@ export default function ChatInputBar({
                         : "Answers are grounded in your uploaded document · Press Enter to send"}
             </p>
         </div>
+
+
     );
 }

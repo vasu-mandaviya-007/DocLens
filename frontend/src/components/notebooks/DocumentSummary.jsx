@@ -43,7 +43,7 @@ export default function DocumentSummary({ doc, onSuggestionClick, showSuggestion
                     <BookOpen className="w-5 h-5 text-brand-primary" strokeWidth={1.5} />
                 </div>
 
-                <h2 className="text-3xl md:text-4xl font-normal leading-tight text-content-default mb-2">
+                <h2 className="text-3xl line-clamp-2 wrap-break-word md:text-4xl font-normal leading-tight text-content-default mb-2">
                     {title}
                 </h2>
                 <p className="text-[13px] text-content-deemphasized ">{meta}</p>

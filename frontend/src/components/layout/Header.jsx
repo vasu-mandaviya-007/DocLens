@@ -60,12 +60,12 @@ const Header = () => {
 
                 <Link to="/" className="flex shrink-0 items-center" aria-label="DocLens home">
                     <img
-                        src="/dark_logo2.png"
+                        src="/dark_logo.png"
                         className="hidden h-8 w-auto sm:h-9 dark:block"
                         alt="DocLens"
                     />
                     <img
-                        src="/light_logo2.png"
+                        src="/light_logo.png"
                         className="block h-8 w-auto sm:h-9 dark:hidden"
                         alt="DocLens"
                     />

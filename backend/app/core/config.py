@@ -65,8 +65,8 @@ class Settings(BaseSettings):
     MAX_PAGE_COUNT: int = 100
     PROCESSING_TIMEOUT_MINUTES: int = 8
 
-    DAILY_DOCUMENT_LIMIT: int = 30
-    DAILY_QUESTION_LIMIT: int = 100
+    DAILY_DOCUMENT_LIMIT: int = 5
+    DAILY_QUESTION_LIMIT: int = 20
 
     CHROMA_API_KEY: str
     CHROMA_TENANT: str

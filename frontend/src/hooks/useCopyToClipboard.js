@@ -1,15 +1,22 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
+
 export async function copyText(text) {
+
     try {
+
         await navigator.clipboard.writeText(text);
         return true;
-    } catch {
-        return false; // permission denied / insecure context
+
+    } catch (e) {
+
+        return false;
+
     }
 }
 
 export function useCopyToClipboard(resetMs = 1500) {
+
     const [copied, setCopied] = useState(false);
     const timer = useRef(null);
 
@@ -26,4 +33,5 @@ export function useCopyToClipboard(resetMs = 1500) {
     }, [resetMs]);
 
     return { copied, copy };
+
 }

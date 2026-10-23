@@ -737,7 +737,7 @@
 
 
 import { Check, Copy, Hash, Sparkles } from "lucide-react";
-import { memo, useEffect, useMemo } from "react";
+import { memo, useEffect, useMemo, useRef } from "react";
 import { createPortal } from "react-dom";
 import { IconButton, Tooltip } from "@mui/material";
 import appToast from "../common/AppToast.jsx";
@@ -745,6 +745,7 @@ import { hidePartialCitation, stripCitations } from "./citations.js";
 import MarkdownRenderer from "./MarkdownRenderer.jsx";
 import { copyText, useCopyToClipboard } from "../../hooks/useCopyToClipboard.js";
 import { useTextSelection } from "../../hooks/useTextSelection.js";
+import DropdownMenu from "../common/DropdownMenu.jsx";
 
 const TOOLBAR_BTN =
     "flex items-center gap-1.5 px-3 py-1.5 rounded-lg hover:bg-zinc-800 dark:hover:bg-zinc-100 text-[13px] font-medium transition-colors cursor-pointer";
@@ -793,6 +794,8 @@ const ChatBubble = memo(function ChatBubble({ message, onExplain, onCitationClic
 
     const handleCopy = async () => {
         const ok = await copy(isUser ? message.text : stripCitations(message.text));
+        console.log(ok);
+
         appToast.info(ok ? "Copied to clipboard" : "Couldn't copy. Check browser permissions");
     };
 
@@ -807,22 +810,48 @@ const ChatBubble = memo(function ChatBubble({ message, onExplain, onCitationClic
         clear();
     };
 
+    const messageMenuItems = [
+        {
+            id: "copy",
+            label: "Copy Text",
+            onClick: () => navigator.clipboard.writeText(message.text),
+        },
+        {
+            id: "delete",
+            label: "Delete Message",
+            type: "danger",
+            divider: true,
+            onClick: () => handleDelete?.(message.id),
+        },
+    ];
+
     return (
         <div className={`flex w-full font-display animate-fade-in-up ${isUser ? "justify-end" : "justify-start"}`}>
-            <div className={`flex flex-col gap-2 w-full max-w-[85%] ${isUser ? "items-end" : "items-start"}`}>
+            <div className={`flex group flex-col gap-2 w-full max-w-[85%] ${isUser ? "items-end" : "items-start"}`}>
                 {isUser ? (
                     <div className="relative group">
                         {/* whitespace-pre-wrap: pasted code/multi-line text ka format bacha rahe */}
-                        <div className="px-6 py-4 rounded-xl rounded-tr-sm dark:bg-card-highlight bg-surface-highlight text-content-default text-sm whitespace-pre-wrap wrap-break-word">
+                        {/* <div
+                            className="px-6 py-4 rounded-xl rounded-tr-sm bg-primary text-white text-sm whitespace-pre-wrap wrap-break-word"
+                        >
                             {message.text}
-                        </div>
-                        <div className="flex mt-1 items-center justify-end invisible pointer-events-none group-hover:visible group-hover:pointer-events-auto group-hover:animate-fade-in">
-                            <Tooltip title="Copy" arrow>
-                                <IconButton onClick={handleCopy}>
-                                    <Copy size={15} />
-                                </IconButton>
-                            </Tooltip>
-                        </div>
+                        </div> */}
+
+                        <DropdownMenu
+                            triggerOn="hold"
+                            holdDelay={500}
+                            align="right"
+                            items={messageMenuItems}
+                            trigger={(triggerProps) => (
+                                <div
+                                    {...triggerProps}
+                                    className="px-6 py-4 rounded-xl rounded-tr-sm bg-primary text-white text-sm whitespace-pre-wrap wrap-break-word select-none cursor-pointer active:scale-[0.98] transition-transform"
+                                >
+                                    {message.text}
+                                </div>
+                            )}
+                        />
+
                     </div>
                 ) : (
                     <div
@@ -831,15 +860,6 @@ const ChatBubble = memo(function ChatBubble({ message, onExplain, onCitationClic
                     >
                         <MarkdownRenderer text={displayText} citations={lookup} onCitationClick={onCitationClick} />
 
-                        <button
-                            type="button"
-                            onClick={handleCopy}
-                            aria-label="Copy message"
-                            title="Copy message"
-                            className="mt-1 inline-flex items-center justify-center w-7 h-7 rounded-md opacity-0 group-hover:opacity-100 text-content-deemphasized hover:text-content-default hover:bg-surface-emphasized transition-all duration-150"
-                        >
-                            {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
-                        </button>
                     </div>
                 )}
 
@@ -865,7 +885,7 @@ const ChatBubble = memo(function ChatBubble({ message, onExplain, onCitationClic
                 }
 
                 {footerCitations.length > 0 && (
-                    <div className="flex flex-wrap gap-1.5">
+                    <div className="flex mt-2 flex-wrap gap-1.5">
                         {footerCitations.map((c) => (
                             <button
                                 key={c.id}
@@ -880,6 +900,27 @@ const ChatBubble = memo(function ChatBubble({ message, onExplain, onCitationClic
                         ))}
                     </div>
                 )}
+
+                {isUser ? (
+                    <div className="flex mt-1 items-center justify-end visible md:invisible pointer-events-auto md:pointer-events-none group-hover:visible group-hover:pointer-events-auto group-hover:animate-fade-in">
+                        <Tooltip title="Copy" arrow>
+                            <IconButton onClick={handleCopy}>
+                                <Copy size={15} />
+                            </IconButton>
+                        </Tooltip>
+                    </div>
+                ) : (
+                    <button
+                        type="button"
+                        onClick={handleCopy}
+                        aria-label="Copy message"
+                        title="Copy message"
+                        className="mt-1 inline-flex items-center justify-center w-7 h-7 rounded-md text-content-default hover:text-content-default hover:bg-surface-emphasized transition-all duration-150"
+                    >
+                        {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+                    </button>
+                )}
+
             </div>
         </div>
     );

@@ -33,6 +33,7 @@ const NotebookViewPage = () => {
 
     // naya handler:
     const handleCitationClick = (citation) => {
+        setMobileTab("sources")
         sidebarRef.current?.jumpToCitation(citation);
     };
 
@@ -165,9 +166,9 @@ const NotebookViewPage = () => {
 
                             </div>
 
-                        ) : (
+                        ) : ( 
 
-                            <div className="flex-1 flex flex-col w-full overflow-hidden">
+                            <div className="flex-1 flex flex-col w-full h-full overflow-hidden">
 
                                 {isDocProcessing && (
                                     <ProcessingBanner />
